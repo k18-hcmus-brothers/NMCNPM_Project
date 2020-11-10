@@ -1,0 +1,38 @@
+$sidebar-width: 20%;
+
+.container-fluid {
+    #content-page {
+        margin-left: $sidebar-width + 1;
+    }
+
+    .SideBar {
+        width: $sidebar-width;
+    }
+
+    :link {
+        text-decoration: none;
+        pointer-events: none;
+    }
+
+    .SideBarItem {
+        line-height: 60px;
+        padding: 20px;
+        padding-left: 30px;
+        font-size: 20px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: gray;
+        }
+
+        .font-icon {
+            font-size: 40px;
+            vertical-align: middle;
+            color: white;
+        }
+
+        b {
+            color: white;
+        }
+    }
+}
