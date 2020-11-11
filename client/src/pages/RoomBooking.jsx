@@ -1,7 +1,7 @@
 const RoomBooking = () => {
   return (
     <div id="content-page">
-      <h1>GAGA</h1>
+      <h1>Room Booking</h1>
     </div>
   );
 };
