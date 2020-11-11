@@ -1,0 +1,14 @@
+.navbar {
+    width: calc(100vw - 250px);
+    background-color: #373a40;
+    color: white;
+}
+
+.navbar .navbar-title {
+    color: white;
+    font-size: 1.6rem;
+}
+
+.navbar .navbar-title:hover {
+    color: white;
+}
