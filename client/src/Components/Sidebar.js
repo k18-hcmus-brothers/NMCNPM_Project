@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { Link, NavLink } from 'react-router-dom'
-import { Button, Nav, NavDropdown } from 'react-bootstrap'
+import React, { useState } from 'react'
+import {  NavLink } from 'react-router-dom'
+import {  Nav, NavDropdown } from 'react-bootstrap'
 
 import { MdRoomService } from 'react-icons/md'
-import { RiBarChartFill } from 'react-icons/ri'
-import { IoIosPeople, IoIosWallet } from 'react-icons/io'
 import { BsInboxesFill, BsPersonLinesFill, BsFillGridFill } from 'react-icons/bs'
 import { FaChartLine } from 'react-icons/fa'
 import { ImHome } from 'react-icons/im'
@@ -12,7 +10,7 @@ import { ImHome } from 'react-icons/im'
 import '../Styles/Sidebar.css'
 
 function Sidebar() {
-    const [show, setShow] = useState(true)
+    const [show, setShow] = useState(false)
 
     const dropdownToggle = (isShow, event, {source}) => {
         if (source === "click") 
@@ -21,8 +19,8 @@ function Sidebar() {
 
     return (
         <>
-            <Nav className="sidebar flex-column">                       
-
+            <Nav className="sidebar flex-column sticky-left">
+ 
                 <NavLink className="nav-link" to="/">
                     <img
                         src="../../logo.png"

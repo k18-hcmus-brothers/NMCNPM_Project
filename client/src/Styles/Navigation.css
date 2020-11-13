@@ -1,7 +1,8 @@
 .navbar {
-    width: calc(100vw - 250px);
     background-color: #373a40;
     color: white;
+    box-sizing: border-box;
+    width: calc(100vw - 270px);
 }
 
 .navbar .navbar-title {
@@ -11,4 +12,8 @@
 
 .navbar .navbar-title:hover {
     color: white;
+}
+
+.narbar .narbar-brand:focus {
+    color: white !important;
 }
