@@ -6,6 +6,12 @@
   padding: 0;
   font-family: 'Lato', sans-serif;
 }
+
+html {
+  overflow: -moz-scrollbars-vertical; 
+  overflow-y: scroll;
+}
+
 .wrapper {
     display: flex;
     align-items: stretch;

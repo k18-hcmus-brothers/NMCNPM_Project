@@ -4,6 +4,8 @@
     min-width: 250px;
     font-size: 1.4rem;
     background-color: #373a40;
+    position: sticky;
+    top: 0;
 }
 
 .nav-link {

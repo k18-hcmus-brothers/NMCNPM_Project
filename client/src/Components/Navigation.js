@@ -6,8 +6,8 @@ import '../Styles/Navigation.css'
 function Navigation(props) {
   return (
     <>
-      <Navbar expand="lg" className="navbar">
-        <Navbar.Brand className="navbar-title" href="#">{props.title}</Navbar.Brand>
+      <Navbar expand="lg" className="navbar" sticky="top">
+        <Navbar.Brand className="navbar-title">{props.title}</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
