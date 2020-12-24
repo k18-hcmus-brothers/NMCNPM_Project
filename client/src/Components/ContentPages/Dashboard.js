@@ -5,9 +5,9 @@ import Navigation from '../Navigation'
 function Dashboard() {
 
     return (
-        <div>
+        <div >
             <Navigation title="Dashboard" />
-            <Container fluid>
+            <div className="container-fluid">
                 <div>test long content</div><div>test long content</div><div>test long content</div><div>test long content</div>
                 <div>test long content</div><div>test long content</div><div>test long content</div><div>test long content</div>
                 <div>test long content</div><div>test long content</div><div>test long content</div><div>test long content</div>
@@ -26,7 +26,13 @@ function Dashboard() {
                 <div>test long content</div><div>test long content</div><div>test long content</div><div>test long content</div>
                 <div>test long content</div><div>test long content</div><div>test long content</div><div>test long content</div>
                 <div>test long content</div><div>test long content</div><div>test long content</div><div>test long content</div>
-            </Container>
+                <div>test long content</div><div>test long content</div><div>test long content</div><div>test long content</div>
+                <div>test long content</div><div>test long content</div><div>test long content</div><div>test long content</div>
+                <div>test long content</div><div>test long content</div><div>test long content</div><div>test long content</div>
+                <div>test long content</div><div>test long content</div><div>test long content</div><div>test long content</div>
+                <div>test long content</div><div>test long content</div><div>test long content</div><div>test long content</div>
+                <div>test long content</div><div>test long content</div><div>test long content</div><div>test long content</div>
+            </div>
         </div>
     );
 }

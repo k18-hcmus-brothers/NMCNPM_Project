@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -7,13 +6,63 @@
   font-family: 'Lato', sans-serif;
 }
 
-html {
-  overflow: -moz-scrollbars-vertical; 
+/* html {
   overflow-y: scroll;
-}
+  overflow-x: hidden;
+} */
 
 .wrapper {
-    display: flex;
-    align-items: stretch;
+  display: flex;
+  align-items: stretch;
 }
 
+.content-wrapper {
+  background-color: #efeff6;
+}
+
+.content-box {
+  background-color: #fff;
+  border-radius: 0.25rem;
+  padding: 10px;
+  box-shadow: 1px 2px 1px rgba(154, 154, 204, 0.22);
+  margin-bottom: 30px;
+}
+
+.row {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.container-fluid {
+  height: calc(100vh - 60px);
+  overflow-y: scroll;
+  overflow-y: overlay !important;
+  padding: 30px;
+}
+
+/* Let's get this party started */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.5)
+}
+
+::-webkit-scrollbar-button:single-button {}

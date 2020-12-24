@@ -26,7 +26,8 @@ function Sidebar() {
                         src="../../logo.png"
                         width="50"
                         height="50"
-                        className="d-inline-block align-top mr-4">
+                        className="d-inline-block align-top mr-4"
+                        alt="logo hotel">
                     </img>
                         Hotel De Luna
                     </NavLink>
