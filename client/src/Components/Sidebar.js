@@ -1,15 +1,13 @@
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
-import { Button, Nav, NavDropdown } from 'react-bootstrap'
-
-import { MdRoomService } from 'react-icons/md'
-import { RiBarChartFill } from 'react-icons/ri'
-import { IoIosPeople, IoIosWallet } from 'react-icons/io'
-import { BsInboxesFill, BsPersonLinesFill, BsFillGridFill } from 'react-icons/bs'
+import { Nav, NavDropdown } from 'react-bootstrap'
+import { BsFillGridFill, BsInboxesFill, BsPersonLinesFill } from 'react-icons/bs'
 import { FaChartLine } from 'react-icons/fa'
 import { ImHome } from 'react-icons/im'
-
+import { MdRoomService } from 'react-icons/md'
+import { NavLink } from 'react-router-dom'
 import '../Styles/Sidebar.css'
+
+
 
 function Sidebar() {
     return (
