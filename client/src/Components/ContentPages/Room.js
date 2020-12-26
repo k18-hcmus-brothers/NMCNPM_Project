@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Container } from 'react-bootstrap'
 import Navigation from '../Navigation'
 

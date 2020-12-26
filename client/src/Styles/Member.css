@@ -1,0 +1,25 @@
+.collapse {
+  display: none;
+}
+
+.collapse.show {
+  display: block;
+}
+
+input[type="checkbox"][disabled]:checked{
+  background-color: red;
+  color: red;
+}
+
+.member-tbody {
+  display:block;
+  height:300px;
+  overflow:scroll;
+  overflow:overlay !important;
+}
+
+.member-thead, .member-tbody .member-tr {
+  display:table;
+  width:100%;
+  table-layout:fixed;/* even columns width , fix width of table too*/
+}
