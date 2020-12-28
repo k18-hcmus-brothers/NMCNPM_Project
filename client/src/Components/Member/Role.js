@@ -8,18 +8,22 @@ import '../../Styles/Member.css'
 
 function Role() {
 
-  const [roles, setRoles] = useState([])
-
-  const [expand, setExpand] = useState(true)
+  const [roles, setRoles] = useState([]);
+  const [expand, setExpand] = useState(true);
+  const [showAddForm, setShowAddForm] = useState(false);
 
   // eslint-disable-next-line
-  useEffect(async () => {
+  const fetchRoleData = async () => {
     const result = await axios(
       server + '/member/'
-    )
-    // console.log("<<Role.js useEffect>>", result.data)
+    );
+    console.log("<<Role.js useEffect called ...>>");
 
-    setRoles(result.data)
+    setRoles(result.data);
+  };
+
+  useEffect(() => {
+    fetchRoleData();
   }, []);
 
   function handleExpand(e) {
@@ -32,7 +36,6 @@ function Role() {
     const index = e.target.getAttribute("index")
     setRoles(prevState => {
       let roleItems = [...prevState]
-      // console.log(roleItems[index][name])
       roleItems[index][name] = !roleItems[index][name]
       return roleItems;
     })
@@ -41,6 +44,17 @@ function Role() {
   function handleDelete(e) {
     console.log("<<DELETE>>", e.target)
 
+  }
+
+  const addRole = (newRole) => {
+    const newRoles = [...roles, newRole];
+    setRoles(newRoles);
+  }
+
+  function renderAddForm(e) {
+    return (
+      <RoleItem addRow={true} cancleAddForm={() => setShowAddForm(false)} addRole={addRole} />
+    );
   }
 
   return (
@@ -69,9 +83,15 @@ function Role() {
               {roles.map((role) => {
                 return <RoleItem key={role.id} name={role.id} role={role} onCheckboxChange={handleCheckboxChange} onDeleteItem={handleDelete} />
               })}
-              
 
+              {showAddForm
+                ? renderAddForm()
+                : <button onClick={() => setShowAddForm(true)}>Add Item</button>}
             </tbody>
+
+
+
+
           </table>
         </div>
       </div>
