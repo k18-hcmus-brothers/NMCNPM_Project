@@ -17,7 +17,6 @@ function Role() {
     const result = await axios(
       server + '/member/'
     );
-    console.log("<<Role.js useEffect called ...>>");
 
     setRoles(result.data);
   };
@@ -26,30 +25,29 @@ function Role() {
     fetchRoleData();
   }, []);
 
-  function handleExpand(e) {
+  const handleExpand = (e) => {
     e.preventDefault()
     setExpand(!expand)
   }
 
-  function handleCheckboxChange(e) {
-    const name = e.target.getAttribute("name")
-    const index = e.target.getAttribute("index")
-    setRoles(prevState => {
-      let roleItems = [...prevState]
-      roleItems[index][name] = !roleItems[index][name]
-      return roleItems;
-    })
-  }
 
-  function handleDelete(e) {
+  const handleDelete = (e) =>{
     console.log("<<DELETE>>", e.target)
 
   }
 
   const addRole = (newRole) => {
-    const newRoles = [...roles, newRole];
-    setRoles(newRoles);
+    // e.preventDefault();
+
+    // newRole.loainhanvien = e.target.loainhanvien.value;
+    console.log(newRole);
   }
+
+  const updateRole = (role) => {
+    console.log(role);
+  }
+
+
 
   function renderAddForm(e) {
     return (
@@ -65,34 +63,32 @@ function Role() {
           <button href="#" onClick={handleExpand}>-</button>
         </div>
         <div className={"collapse " + (expand ? "show" : "")}>
-          <table className="table table-hover table-borderless">
-            <thead className="member-thead">
-              <tr>
-                <th scope="col">Tên vai trò</th>
-                <th scope="col">Đặt/Huỷ phòng</th>
-                <th scope="col">Đặt/Huỷ dịch vụ</th>
-                <th scope="col">Thêm/Xoá phòng</th>
-                <th scope="col">Thêm/Xoá dịch vụ</th>
-                <th scope="col">Thêm/Xoá nhân viên</th>
-                <th scope="col">Xem/Xuất báo cáo</th>
-                <th scope="col">Hành động</th>
-              </tr>
-            </thead>
+          <form id="form-role" onSubmit={addRole}>
+            <table className="table table-hover table-borderless">
+              <thead className="member-thead">
+                <tr>
+                  <th scope="col">Tên vai trò</th>
+                  <th scope="col">Đặt/Huỷ phòng</th>
+                  <th scope="col">Đặt/Huỷ dịch vụ</th>
+                  <th scope="col">Thêm/Xoá phòng</th>
+                  <th scope="col">Thêm/Xoá dịch vụ</th>
+                  <th scope="col">Thêm/Xoá nhân viên</th>
+                  <th scope="col">Xem/Xuất báo cáo</th>
+                  <th scope="col">Hành động</th>
+                </tr>
+              </thead>
 
-            <tbody className="member-tbody">
-              {roles.map((role) => {
-                return <RoleItem key={role.id} name={role.id} role={role} onCheckboxChange={handleCheckboxChange} onDeleteItem={handleDelete} />
-              })}
+              <tbody className="member-tbody">
+                {roles.map((role) => {
+                  return <RoleItem key={role.id} name={role.id} role={role} onDeleteItem={handleDelete} updateRole={updateRole}/>
+                })}
 
-              {showAddForm
-                ? renderAddForm()
-                : <button onClick={() => setShowAddForm(true)}>Add Item</button>}
-            </tbody>
-
-
-
-
-          </table>
+                {showAddForm
+                  ? renderAddForm()
+                  : <button onClick={() => setShowAddForm(true)}>Add Item</button>}
+              </tbody>
+            </table>
+          </form>
         </div>
       </div>
 
