@@ -3,16 +3,54 @@ import React, { useState, useEffect } from 'react';
 import ListMemberItem from './ListMemberItem';
 
 function ListMember() {
+  const [listMember, setListMember] = useState([]);
   const [expand, setExpand] = useState(true);
+  const [showAddForm, setShowAddForm] = useState(false);
 
-  function handleExpand(e) {
+
+  // Dữ liệu giả
+  // setListMember([{tenNhanVien: "Nguyen", tenDangNhap: "nguyen31", vaiTro: "", SDT: "0937718415"}]);
+
+  // eslint-disable-next-line
+  // Cài đặt database sau
+  // const fetchMemberData = async () => {
+  //   const result = await axios(
+  //     server + '/member/listmember'
+  //   );
+
+  //   setListMember(result.data);
+  // };
+
+  // useEffect(() => {
+  //   fetchMemberData();
+  // }, []);
+
+  const handleExpand = (e) => {
     e.preventDefault()
     setExpand(!expand)
   }
 
-  function newItem(e) {
-    e.preventDefault();
 
+  const handleDelete = (e) =>{
+    console.log("<<DELETE>>", e.target)
+
+  }
+
+  const addMember = (newMember) => {
+    // e.preventDefault();
+
+    // newRole.loainhanvien = e.target.loainhanvien.value;
+    console.log(newMember);
+  }
+
+  const updateMember = (member) => {
+    console.log(member);
+  }
+
+  function renderAddForm(e) {
+    return (
+      <ListMemberItem addRow={true} cancleAddForm={() => setShowAddForm(false)} addMember={addMember} />
+    );
   }
 
   return (
@@ -36,6 +74,9 @@ function ListMember() {
 
             <tbody className="member-tbody">
               <ListMemberItem />
+              {showAddForm
+                  ? renderAddForm()
+                  : <button onClick={() => setShowAddForm(true)}>Add Item</button>}
             </tbody>
           </table>
         </div>
