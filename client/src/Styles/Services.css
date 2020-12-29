@@ -1,0 +1,35 @@
+.EditBtn
+{
+    margin-right: 10px;
+}
+.BtnThemDV
+{
+   align-content: center;
+}
+
+.service-tbody {
+    display:block;
+    height:300px;
+    overflow:scroll;
+    overflow:overlay !important;
+  }
+  .service-thead{
+    display:table;
+    width:100%;
+    table-layout:fixed;
+  }
+  
+  .service-thead, .service-tbody .service-tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+  }
+  input.service-input {
+    width: 100%;
+    
+  }
+  
+  input.service-input:disabled {
+    border: none;
+    background-color: white;
+  }

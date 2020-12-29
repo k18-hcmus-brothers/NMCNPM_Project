@@ -8,7 +8,7 @@ require('./db/db')
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const memberRouter = require('./routes/member')
-
+const serviceRouter = require('./routes/service')
 const app = express();
 
 // app.use(logger('dev'));
@@ -24,6 +24,6 @@ app.use(function (req, res, next) {
 });
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/member', memberRouter)
-
+app.use('/member', memberRouter);
+app.use('/service',serviceRouter);
 module.exports = app;
