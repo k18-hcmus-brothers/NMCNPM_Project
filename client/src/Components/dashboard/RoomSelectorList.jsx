@@ -9,7 +9,7 @@ const RoomSelectorList = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get(server + "/dashboard/room");
+      const result = await axios.get(server + "/dashboard/rooms");
       console.log(result);
       setRooms(result.data);
     };

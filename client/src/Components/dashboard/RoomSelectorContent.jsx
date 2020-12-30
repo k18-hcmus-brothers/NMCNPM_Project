@@ -5,9 +5,7 @@ const axios = require("axios");
 const numeral = require("numeral");
 const moment = require("moment");
 
-const RoomSelectorContent = ({ billId, status }) => {
-  const [data, setData] = useState();
-
+const RoomSelectorContent = ({ data, status }) => {
   const getBackground = () => {
     if (status === "busy")
       return {
@@ -19,25 +17,6 @@ const RoomSelectorContent = ({ billId, status }) => {
 
     return {};
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (billId !== null) {
-          const bill = await axios.get(server + "/dashboard/bill", {
-            params: {
-              id: billId,
-            },
-          });
-
-          setData(bill.data[0]);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, [billId]);
 
   const getContent = () => {
     if (data && status === "busy") {

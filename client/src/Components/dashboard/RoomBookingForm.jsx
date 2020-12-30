@@ -59,6 +59,8 @@ const RoomBookingForm = ({ data, close, checkIn }) => {
       }
       case "numberCustomer": {
         if (+value <= 0) return "Số người ở phải lớn hơn 0";
+        if (+value > data.SoNguoi)
+          return `Số người tối đa của phòng là ${data.SoNguoi}`;
         return "";
       }
       default:
@@ -117,29 +119,20 @@ const RoomBookingForm = ({ data, close, checkIn }) => {
       onSubmit={(event) => handleSubmit(event)}
     >
       <div className="card-header text-center text-white font-weight-bold bg-primary">
-        Phòng {data.id}
+        Phòng {data.SoPhong}
       </div>
       <div className="row w-100 card-body">
         <div className="col-sm-6">
           <label htmlFor="exampleFormControlSelect1">Giá phòng</label>
           <div className="form-group row">
-            <select
-              className="form-control col-sm-8"
-              id="exampleFormControlSelect1"
-            >
-              <option>Giá Chuẩn</option>
-              <option>Giá VIP</option>
-            </select>
-            <div className="col-sm-4">
-              <input
-                type="text"
-                className="form-control"
-                id="price"
-                value={numeral(500000).format(0, 0)}
-                name="price"
-                readOnly
-              />
-            </div>
+            <input
+              type="text"
+              className="form-control"
+              id="price"
+              value={numeral(data.Gia).format(0, 0)}
+              name="price"
+              readOnly
+            />
           </div>
           <div className="form-group row">
             <div className="col-sm-6 w-100">
@@ -171,6 +164,7 @@ const RoomBookingForm = ({ data, close, checkIn }) => {
               id="exampleFormControlTextarea1"
               rows="6"
               name="note"
+              onChange={handleInput}
             ></textarea>
           </div>
         </div>
@@ -188,7 +182,9 @@ const RoomBookingForm = ({ data, close, checkIn }) => {
               autoFocus
             />
             <FormError
-              isHidden={statesManager.name.isInputValid}
+              isHidden={
+                statesManager.name.errorMessage.length > 0 ? false : true
+              }
               errorMessage={statesManager.name.errorMessage}
             />
           </div>
@@ -205,7 +201,7 @@ const RoomBookingForm = ({ data, close, checkIn }) => {
               onBlur={handleInputValidation}
             />
             <FormError
-              isHidden={statesManager.id.isInputValid}
+              isHidden={statesManager.id.errorMessage.length > 0 ? false : true}
               errorMessage={statesManager.id.errorMessage}
             />
           </div>
@@ -221,7 +217,9 @@ const RoomBookingForm = ({ data, close, checkIn }) => {
               onBlur={handleInputValidation}
             />
             <FormError
-              isHidden={statesManager.phone.isInputValid}
+              isHidden={
+                statesManager.phone.errorMessage.length > 0 ? false : true
+              }
               errorMessage={statesManager.phone.errorMessage}
             />
           </div>
@@ -237,7 +235,11 @@ const RoomBookingForm = ({ data, close, checkIn }) => {
               onBlur={handleInputValidation}
             />
             <FormError
-              isHidden={statesManager.numberCustomer.isInputValid}
+              isHidden={
+                statesManager.numberCustomer.errorMessage.length > 0
+                  ? false
+                  : true
+              }
               errorMessage={statesManager.numberCustomer.errorMessage}
             />
           </div>
