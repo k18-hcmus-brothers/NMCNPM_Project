@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import RoleItem from './RoleItem'
-import axios from 'axios'
+import axios from 'axios';
 
-import server from '../../server'
+import server from '../../server';
 
-import '../../Styles/Member.css'
+import '../../Styles/Member.css';
 
 function Role() {
 
@@ -13,16 +13,15 @@ function Role() {
   const [showAddForm, setShowAddForm] = useState(false);
 
   // eslint-disable-next-line
-  const fetchRoleData = async () => {
-    const result = await axios(
-      server + '/member/roles'
-    );
-
-
-    setRoles(result.data);
-  };
+  
 
   useEffect(() => {
+    const fetchRoleData = async () => {
+      const result = await axios(
+        server + '/member/roles'
+      );
+      setRoles(result.data);
+    };
     fetchRoleData();
   }, []);
 
@@ -37,11 +36,9 @@ function Role() {
 
   }
 
-  const addRole = (newRole) => {
-    // e.preventDefault();
-
-    // newRole.loainhanvien = e.target.loainhanvien.value;
-    console.log(newRole);
+  const addRole = (e) => {
+    e.preventDefault();
+    console.log(e.target);
   }
 
   const updateRole = (role) => {
@@ -81,12 +78,12 @@ function Role() {
 
               <tbody className="member-tbody">
                 {roles.map((role) => {
-                  return <RoleItem key={role.id} name={role.id} role={role} onDeleteItem={handleDelete} updateRole={updateRole}/>
+                  return <RoleItem key={role.mavaitro} name={role.mavaitro} role={role} onDeleteItem={handleDelete} updateRole={updateRole}/>
                 })}
 
                 {showAddForm
                   ? renderAddForm()
-                  : <button onClick={() => setShowAddForm(true)}>Add Item</button>}
+                  : <tr><button onClick={() => setShowAddForm(true)}>Add Item</button></tr>}
               </tbody>
             </table>
           </form>

@@ -1,11 +1,21 @@
-const db = require('../db/db')
+const db = require('../db/db');
+const util = require("util");
 
-exports.list = (callback) => {
-    const query = 'SELECT * FROM LOAINHANVIEN';
+const db_query = util.promisify(db.query).bind(db);
+const load = (sql) => db_query(sql);
+const add = (entity, table) => db_query(`insert into ${table} set ?`, entity);
+const del = (condition, table) =>
+    db_query(`delete from ${table} where ?`, condition);
+const patch = (entity, condition, table) =>
+    db_query(`update ${table} set ? where ?`, [entity, condition]);
 
-    db.query(query, function(err, result) {
-        if (err) throw err
-        // console.log(result)
-        callback(err, result)
-    })
+exports.getAllMembers = async () => {
+    const query = `select * 
+                   from nhanvien nv join hethong ht
+                                    on nv.manv = ht.manv join vaitro vt
+                                                         on nv.mavaitro = vt.mavaitro
+                   order by nv.manv asc`;
+    const members = await load(query);
+    // console.log("<<MEMBER MODEL>>", members);
+    return members;
 }

@@ -2,54 +2,73 @@ import { func } from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import ListMemberItem from './ListMemberItem';
 
+import axios from 'axios';
+
+import server from '../../server';
+
+import '../../Styles/Member.css';
+
 function ListMember() {
   const [listMember, setListMember] = useState([]);
   const [expand, setExpand] = useState(true);
   const [showAddForm, setShowAddForm] = useState(false);
-
-
-  // Dữ liệu giả
-  // setListMember([{tenNhanVien: "Nguyen", tenDangNhap: "nguyen31", vaiTro: "", SDT: "0937718415"}]);
+  const [roles, setRoles] = useState([]); // để select vai trò nhân viên
 
   // eslint-disable-next-line
-  // Cài đặt database sau
-  // const fetchMemberData = async () => {
-  //   const result = await axios(
-  //     server + '/member/listmember'
-  //   );
+  
 
-  //   setListMember(result.data);
-  // };
+  const fetchRoleData = async () => {
+    const result = await axios(
+      server + '/member/roles'
+    );
 
-  // useEffect(() => {
-  //   fetchMemberData();
-  // }, []);
+    return result.data;
+  };
+
+  useEffect(() => {
+    const fetchMemberData = async () => {
+      const result = await axios(
+        server + '/member/members'
+      );
+      setListMember(result.data);
+    };
+    fetchMemberData();
+
+    const fetchRoleData = async () => {
+      const result = await axios(
+        server + '/member/roles'
+      );
+  
+      setRoles(result.data);
+    };
+    fetchRoleData();
+  }, []);
 
   const handleExpand = (e) => {
     e.preventDefault()
     setExpand(!expand)
-  }
+  };
 
 
-  const handleDelete = (e) =>{
+  const handleDelete = (e) => {
     console.log("<<DELETE>>", e.target)
 
-  }
+  };
 
   const addMember = (newMember) => {
     // e.preventDefault();
 
     // newRole.loainhanvien = e.target.loainhanvien.value;
     console.log(newMember);
-  }
+  };
 
   const updateMember = (member) => {
     console.log(member);
-  }
+  };
 
   function renderAddForm(e) {
     return (
-      <ListMemberItem addRow={true} cancleAddForm={() => setShowAddForm(false)} addMember={addMember} />
+      <ListMemberItem addRow={true} cancleAddForm={() => setShowAddForm(false)} addMember={addMember} roles={roles}/>
     );
   }
 
@@ -73,10 +92,12 @@ function ListMember() {
             </thead>
 
             <tbody className="member-tbody">
-              <ListMemberItem />
+              {listMember.map((member) => {
+                return <ListMemberItem member={member} key={member.MaNV} roles={roles}/>
+              })}
               {showAddForm
-                  ? renderAddForm()
-                  : <button onClick={() => setShowAddForm(true)}>Add Item</button>}
+                ? renderAddForm()
+                : <button onClick={() => setShowAddForm(true)}>Add Item</button>}
             </tbody>
           </table>
         </div>
