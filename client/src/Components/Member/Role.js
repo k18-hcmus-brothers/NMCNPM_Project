@@ -15,8 +15,9 @@ function Role() {
   // eslint-disable-next-line
   const fetchRoleData = async () => {
     const result = await axios(
-      server + '/member/'
+      server + '/member/roles'
     );
+
 
     setRoles(result.data);
   };
