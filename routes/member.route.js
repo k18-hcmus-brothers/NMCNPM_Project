@@ -5,7 +5,6 @@ const memberModel = require('../models/member.model');
 
 router.get('/roles', async(req, res, next) => {
   const roles = await roleModel.getAllRoles();
-
   let result = [];
 
   for await (let role of roles) {
@@ -31,14 +30,20 @@ router.get('/roles', async(req, res, next) => {
 
     result.push(roleDetail);
   }
-
   res.send(result);
 });
 
 router.get('/members', async(req, res, next) => {
   const members = await memberModel.getAllMembers();
-
+  
   res.send(members);
 });
+
+router.post('/add-member', async(req, res, next) => {
+  const newMember = req.body;
+  await memberModel.addMember(newMember);
+
+  res.send();
+})
 
 module.exports = router;

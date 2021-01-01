@@ -19,3 +19,13 @@ exports.getAllMembers = async () => {
     // console.log("<<MEMBER MODEL>>", members);
     return members;
 }
+
+exports.addMember = async (newMember) => {
+    await add({TenNV: newMember.TenNV, MaVaiTro: +newMember.MaVaiTro, SDT: newMember.SDT}, "nhanvien");
+    const query = `select max(MaNV) 
+                   from nhanvien nv`
+    let MaNV = await load(query);
+    MaNV = MaNV[0]['max(MaNV)'];
+    await add({TenDangNhap: newMember.TenDangNhap, MaKhachSan: 1, MatKhau: newMember.SDT, MaNV: +MaNV}, "hethong");
+    return;
+}

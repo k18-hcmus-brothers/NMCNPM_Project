@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import ListMemberItem from './ListMemberItem';
 
 import axios from 'axios';
-
 import server from '../../server';
 
 import '../../Styles/Member.css';
@@ -14,13 +13,15 @@ function ListMember() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [roles, setRoles] = useState([]); // để select vai trò nhân viên
 
+  const fetchMemberData = async () => {
+    const result = await axios(
+      server + '/member/members'
+    );
+    setListMember(result.data);
+  };
+
   useEffect(() => {
-    const fetchMemberData = async () => {
-      const result = await axios(
-        server + '/member/members'
-      );
-      setListMember(result.data);
-    };
+    
     fetchMemberData();
 
     const fetchRoleData = async () => {
@@ -38,14 +39,25 @@ function ListMember() {
     setExpand(!expand)
   };
 
-
   const handleDelete = (e) => {
     console.log("<<DELETE>>", e.target)
 
   };
 
-  const addMember = (newMember) => {
+  const addMember = async (newMember) => {
     console.log(newMember);
+    try {
+      await axios.post(server + '/member/add-member', newMember);
+      console.log("FINISH");
+    }
+    catch(err) {
+      console.log(err);
+      return;
+    }
+
+    fetchMemberData();
+
+    console.log("<<AFTER ADD>>", listMember);
   };
 
   const updateMember = (member) => {

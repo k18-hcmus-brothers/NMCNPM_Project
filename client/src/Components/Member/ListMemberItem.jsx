@@ -5,20 +5,19 @@ function ListMemberItem(props) {
   const [memberDetail, setMemberDetail] = useState(props.member);
 
   if (!memberDetail) {
-    setMemberDetail({TenNV: "", TenDangNhap: "", MaVaiTro: 0, SDT: "", })
+    setMemberDetail({TenNV: "", TenDangNhap: "", MaVaiTro: "1", SDT: "", })
   }
   const handleUpdate = (e) => {
     e.preventDefault();
     if (!disabled) {
-
     }
     setDisabled(!disabled);
   };
 
-  const handleAddItem = (e) => {
+  const handleAddItem = async (e) => {
     e.preventDefault();
-
-    props.addMember(memberDetail);
+    await props.addMember(memberDetail);
+    props.cancleAddForm();
   }
 
   const onInputChange = (e) => {
@@ -68,7 +67,7 @@ function ListMemberItem(props) {
           <input type="text" name="TenDangNhap" onChange={onInputChange} className="member-input" />
         </td>
         <td>
-          <select className="member-input" name="MaVaiTro" onChange={onInputChange}>
+          <select className="member-input" name="MaVaiTro" onChange={onInputChange} defaultValue="1">
             {props.roles.map((role) => {
               return <option key={role.mavaitro} value={role.mavaitro}>{role.tenvaitro}</option>
             })}
