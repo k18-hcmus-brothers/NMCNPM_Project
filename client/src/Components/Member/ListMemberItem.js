@@ -3,34 +3,52 @@ import React, { useState } from 'react'
 function ListMemberItem(props) {
   const [disabled, setDisabled] = useState(true);
   const [memberDetail, setMemberDetail] = useState(props.member);
-  // console.log(props.roles);
+
+  if (!memberDetail) {
+    setMemberDetail({TenNV: "", TenDangNhap: "", MaVaiTro: 0, SDT: "", })
+  }
   const handleUpdate = (e) => {
-    e.preventDefault()
-    setDisabled(!disabled)
+    e.preventDefault();
+    if (!disabled) {
+
+    }
+    setDisabled(!disabled);
   };
 
-  const onInputChange = (e) => {
+  const handleAddItem = (e) => {
+    e.preventDefault();
 
+    props.addMember(memberDetail);
+  }
+
+  const onInputChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setMemberDetail(prevState => {
+      const detail = {...prevState};
+      detail[name]=value;
+      return detail;
+    });
   };
 
   const RenderExistItem = () => {
     return (
       <tr className="member-tr">
         <td>
-          <input type="text" name="tennhanvien" value={memberDetail.TenNV} onChange={onInputChange} disabled={disabled ? "disabled" : ""} className="member-input" />
+          <input type="text" name="TenNV" value={memberDetail.TenNV} onChange={onInputChange} disabled={disabled ? "disabled" : ""} className="member-input" />
         </td>
         <td>
-          <input type="text" name="tendangnhap" value={memberDetail.TenDangNhap} onChange={onInputChange} disabled={disabled ? "disabled" : ""} className="member-input" />
+          <input type="text" name="TenDangNhap" value={memberDetail.TenDangNhap} onChange={onInputChange} disabled={disabled ? "disabled" : ""} className="member-input" />
         </td>
         <td>
-          <select className="member-input" disabled={disabled ? "disabled" : ""}>
+          <select name="MaVaiTro" className="member-input" disabled={disabled ? "disabled" : ""} value={memberDetail.MaVaiTro} onChange={onInputChange}>
             {props.roles.map((role) => {
-              return <option key={role.mavaitro} value={role.mavaitro} selected={memberDetail.MaVaiTro === role.mavaitro}>{role.tenvaitro}</option>
+              return <option key={role.mavaitro} value={role.mavaitro} >{role.tenvaitro}</option>
             })}
           </select>
         </td>
         <td>
-          <input type="text" name="sdt" value={memberDetail.SDT} onChange={onInputChange} disabled={disabled ? "disabled" : ""} className="member-input" />
+          <input type="text" name="SDT" value={memberDetail.SDT} onChange={onInputChange} disabled={disabled ? "disabled" : ""} className="member-input" />
         </td>
         <td>
           <button className="btn btn-primary" form="form-role" onClick={handleUpdate}> {disabled ? "Update" : "Save"} </button>
@@ -44,23 +62,23 @@ function ListMemberItem(props) {
     return (
       <tr className="member-tr">
         <td>
-          <input type="text" name="tennhanvien" onChange={onInputChange} className="member-input" />
+          <input type="text" name="TenNV" onChange={onInputChange} className="member-input" />
         </td>
         <td>
-          <input type="text" name="tendangnhap" onChange={onInputChange} className="member-input" />
+          <input type="text" name="TenDangNhap" onChange={onInputChange} className="member-input" />
         </td>
         <td>
-          <select className="member-input">
+          <select className="member-input" name="MaVaiTro" onChange={onInputChange}>
             {props.roles.map((role) => {
-              return <option value={role.mavaitro}>{role.tenvaitro}</option>
+              return <option key={role.mavaitro} value={role.mavaitro}>{role.tenvaitro}</option>
             })}
           </select>
         </td>
         <td>
-          <input type="text" name="sdt" onChange={onInputChange} className="member-input" />
+          <input type="text" name="SDT" onChange={onInputChange} className="member-input" />
         </td>
         <td>
-          <button form="form-role" className="btn btn-primary"> Lưu </button>
+          <button form="form-role" className="btn btn-primary" onClick={handleAddItem}> Lưu </button>
           <button className="btn btn-primary" onClick={props.cancleAddForm} > Huỷ </button>
         </td>
       </tr>

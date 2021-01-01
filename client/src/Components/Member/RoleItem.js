@@ -7,10 +7,10 @@ function RoleItem(props) {
   const [roleDetail, setRoleDetail] = useState(props.role);
 
   if (!roleDetail) {
-    setRoleDetail({loainhanvien: "", dathuyphong: false, dathuydichvu: false, themxoaphong: false, themxoadichvu: false, themxoanhanvien: false, xemxuatbaocao: false});
+    setRoleDetail({tenvaitro: "", dathuyphong: false, dathuydichvu: false, themxoaphong: false, themxoadichvu: false, themxoanhanvien: false, xemxuatbaocao: false});
   }
 
-  function onCheckboxChange(e) {
+  const onCheckboxChange = (e) => {
     const name = e.target.name;
     const checked = e.target.checked;
     setRoleDetail(prevState => {
@@ -20,17 +20,17 @@ function RoleItem(props) {
     })
   }
 
-  function onInputChange(e) {
+  const onInputChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setRoleDetail(prevState => {
       const f = {...prevState};
       f[name]=value;
       return f;
-    })
+    });
   }
 
-  function handleUpdate(e) {
+  const handleUpdate = (e) => {
     e.preventDefault();
     // when disabled is false, the button will be "save" => call updateRole
     if (!disabled) {
@@ -39,22 +39,23 @@ function RoleItem(props) {
     setDisabled(!disabled);
   }
 
-  function handleDeleteItem(e) {
+  const handleDeleteItem = (e) => {
     e.preventDefault()
     if (window.confirm('delete the item?')) {
       props.onDeleteItem(e)
     }
   }
 
-  function handleAddItem(e) {
-    props.addRole(e);
+  const handleAddItem = (e) => {
+    e.preventDefault();
+    props.addRole(roleDetail);
   }
 
   const RenderExistItem = () => {
     return (
       <tr className="member-tr">
         <td>
-          <input type="text" name="loainhanvien" value={roleDetail.tenvaitro} onChange={onInputChange} disabled={disabled ? "disabled" : ""} className="member-input"/>
+          <input type="text" name="tenvaitro" value={roleDetail.tenvaitro} onChange={onInputChange} disabled={disabled ? "disabled" : ""} className="member-input"/>
         </td>
         <td>
           <input form="form-role" index={props.role.id} name="dathuyphong" onChange={onCheckboxChange}
@@ -91,10 +92,9 @@ function RoleItem(props) {
   const RenderAddNewItem = () => {
     return (
       <>
-        
         <tr className="member-tr">
           <td>
-            <input form="form-role" name="loainhanvien" type="text" className="member-input" onChange={onInputChange}/>
+            <input form="form-role" name="tenvaitro" type="text" className="member-input" onChange={onInputChange}/>
           </td>
           <td>
             <input form="form-role" name="dathuyphong" type="checkbox" onChange={onCheckboxChange}/>

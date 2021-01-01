@@ -14,17 +14,6 @@ function ListMember() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [roles, setRoles] = useState([]); // để select vai trò nhân viên
 
-  // eslint-disable-next-line
-  
-
-  const fetchRoleData = async () => {
-    const result = await axios(
-      server + '/member/roles'
-    );
-
-    return result.data;
-  };
-
   useEffect(() => {
     const fetchMemberData = async () => {
       const result = await axios(
@@ -56,9 +45,6 @@ function ListMember() {
   };
 
   const addMember = (newMember) => {
-    // e.preventDefault();
-
-    // newRole.loainhanvien = e.target.loainhanvien.value;
     console.log(newMember);
   };
 
@@ -97,7 +83,7 @@ function ListMember() {
               })}
               {showAddForm
                 ? renderAddForm()
-                : <button onClick={() => setShowAddForm(true)}>Add Item</button>}
+                : <tr><button onClick={() => setShowAddForm(true)}>Add Item</button></tr>}
             </tbody>
           </table>
         </div>

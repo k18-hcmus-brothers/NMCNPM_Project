@@ -36,9 +36,8 @@ function Role() {
 
   }
 
-  const addRole = (e) => {
-    e.preventDefault();
-    console.log(e.target);
+  const addRole = (newRole) => {
+    console.log(newRole);
   }
 
   const updateRole = (role) => {
