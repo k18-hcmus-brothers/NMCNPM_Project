@@ -15,14 +15,14 @@ function TableList() {
   const [service, setService] = useState([]);
   const [showAddForm, setShowAddForm] = useState(false);
 
-  // eslint-disable-next-line
-  const fetchServiceData = async () => {
-    const result = await axios(server + "/service/");
-    console.log("<<DATA::>",result.data);
-    setService(result.data);
-  };
+  
 
   useEffect(() => {
+    const fetchServiceData = async () => {
+      const result = await axios(server + "/service/service");
+      console.log("<<DATA::>",result.data);
+      setService(result.data);
+    };
     fetchServiceData();
   }, []);
 
@@ -69,9 +69,8 @@ function TableList() {
 
             <tbody class="service-tbody">
               <section>
-                {Serviecs.map((Service) => (
-                  <ServiceItems name={Service.name} price={Service.price} onDeleteItem={handleDelete} updateService={updateService}/>
-                ))}
+              {service.map((Service) => (
+                  <ServiceItems name={Service.TenDV} price={Service.GiaDV} onDeleteItem={handleDelete} updateService={updateService}/>))}
               </section>
               <div class=" text-center">
             

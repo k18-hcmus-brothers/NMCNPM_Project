@@ -1,9 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const serviceController = require('../controllers/service.controller')
-
-
-router.get('/', serviceController.index)
-router.post('/delete', serviceController.delete);
-
+const serviceModel = require('../models/service.model');
+router.get('/service', async(req, res, next) => {
+    const service = await serviceModel.getAllService();
+    
+    res.send(service);
+  });
+  
+  router.post('/add-service', async(req, res, next) => {
+    const newService = req.body;
+    await serviceModel.addService(newService);
+  
+    res.send();
+  });
 module.exports = router;
