@@ -7,7 +7,7 @@ import ListMember from '../Member/ListMember'
 function Member() {
 
     return (
-        <div>
+        <div >
             <Navigation title="Member" />
             <Container fluid className="content-wrapper">
 

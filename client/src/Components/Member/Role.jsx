@@ -82,7 +82,7 @@ function Role() {
 
                 {showAddForm
                   ? renderAddForm()
-                  : <tr><button onClick={() => setShowAddForm(true)}>Add Item</button></tr>}
+                  : <tr><td><button onClick={() => setShowAddForm(true)}>Add Item</button></td></tr>}
               </tbody>
             </table>
           </form>

@@ -5,12 +5,13 @@ import Member from './ContentPages/Member'
 import Statistic from './ContentPages/Statistic'
 import Room from './ContentPages/Room'
 import Service from './ContentPages/Service'
-
+import Login from './Login';
 
 function MainContent() {
     return (
         <>  
             <Switch>
+                <Route exact path="/login" component={Login}/>
                 <Route exact path="/">
                     <Redirect to="/dashboard" />
                 </Route>

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const roleModel = require('../models/role.model');
 const memberModel = require('../models/member.model');
+const passport = require('passport');
 
 router.get('/roles', async(req, res, next) => {
   const roles = await roleModel.getAllRoles();
@@ -34,9 +35,21 @@ router.get('/roles', async(req, res, next) => {
 });
 
 router.get('/members', async(req, res, next) => {
-  const members = await memberModel.getAllMembers();
+  passport.authenticate('jwt', { session: false }, async (err, user, info) => {
+    if (err) {
+      console.log(err);
+    }
+    if (info) {
+      console.log(info.message);
+      res.status(401).send(info.message);
+    }
+    else {
+      const members = await memberModel.getAllMembers();
+      res.send(members);
+    }
+
+  })(req, res, next);
   
-  res.send(members);
 });
 
 router.post('/add-member', async(req, res, next) => {

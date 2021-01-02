@@ -29,3 +29,13 @@ exports.addMember = async (newMember) => {
     await add({TenDangNhap: newMember.TenDangNhap, MaKhachSan: 1, MatKhau: newMember.SDT, MaNV: +MaNV}, "hethong");
     return;
 }
+
+exports.findUserByUserName = async (username) => {
+    const query = `select *
+                   from nhanvien nv join hethong ht
+                                    on nv.manv = ht.manv
+                   where ht.tendangnhap = '${username}'
+                   `;
+    const user = await load(query);
+    return user;
+}

@@ -4,6 +4,10 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import '../Styles/Navigation.css'
 
 function Navigation(props) {
+  const handleLogout = (e) => {
+    e.preventDefault();
+  }
+
   return (
     <>
       <Navbar expand="lg" className="navbar" sticky="top">
@@ -15,7 +19,7 @@ function Navigation(props) {
               title={< ProfileImage src="/avatar.png" />}
               id="basic-nav-dropdown"
               alignRight>
-              <NavDropdown.Item href="#action/3.1">Logout</NavDropdown.Item>
+              <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
             </NavDropdown>

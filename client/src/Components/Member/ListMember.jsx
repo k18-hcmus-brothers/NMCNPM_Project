@@ -12,23 +12,41 @@ function ListMember() {
   const [expand, setExpand] = useState(true);
   const [showAddForm, setShowAddForm] = useState(false);
   const [roles, setRoles] = useState([]); // để select vai trò nhân viên
+  const [error, setError] = useState(false);
 
   const fetchMemberData = async () => {
-    const result = await axios(
-      server + '/member/members'
-    );
-    setListMember(result.data);
+    let accessString = localStorage.getItem('JWT');
+    if (!accessString) {
+      setError(true);
+    }
+    else {
+      try {
+        const respone = await axios({
+          method: 'get',
+          url: server + "/member/members",
+          headers: {
+            Authorization: `JWT ${accessString}`,
+          },
+        });
+
+        setListMember(respone.data);
+      }
+      catch (error) {
+        console.error("ERROR " + error);
+      }
+    }
+
   };
 
   useEffect(() => {
-    
+
     fetchMemberData();
 
     const fetchRoleData = async () => {
       const result = await axios(
         server + '/member/roles'
       );
-  
+
       setRoles(result.data);
     };
     fetchRoleData();
@@ -50,7 +68,7 @@ function ListMember() {
       await axios.post(server + '/member/add-member', newMember);
       console.log("FINISH");
     }
-    catch(err) {
+    catch (err) {
       console.log(err);
       return;
     }
@@ -66,7 +84,7 @@ function ListMember() {
 
   function renderAddForm(e) {
     return (
-      <ListMemberItem addRow={true} cancleAddForm={() => setShowAddForm(false)} addMember={addMember} roles={roles}/>
+      <ListMemberItem addRow={true} cancleAddForm={() => setShowAddForm(false)} addMember={addMember} roles={roles} />
     );
   }
 
@@ -91,11 +109,11 @@ function ListMember() {
 
             <tbody className="member-tbody">
               {listMember.map((member) => {
-                return <ListMemberItem member={member} key={member.MaNV} roles={roles}/>
+                return <ListMemberItem member={member} key={member.MaNV} roles={roles} />
               })}
               {showAddForm
                 ? renderAddForm()
-                : <tr><button onClick={() => setShowAddForm(true)}>Add Item</button></tr>}
+                : <tr><td><button onClick={() => setShowAddForm(true)}>Add Item</button></td></tr>}
             </tbody>
           </table>
         </div>

@@ -20,3 +20,6 @@
     color: white !important;
 }
 
+.navbar .dropdown-item {
+    color: black;
+}
