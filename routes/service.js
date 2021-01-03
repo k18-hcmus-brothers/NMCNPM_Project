@@ -13,4 +13,17 @@ router.get('/service', async(req, res, next) => {
   
     res.send();
   });
+  router.post('/delete-service', async(req, res, next) => {
+    const delservice = req.body;
+    console.log("<<DELETERouter>>", delservice);
+    await serviceModel.deleteService(delservice);
+  
+    res.send();
+  });
+  router.post('/edit-service', async(req, res, next) => {
+    const edtService = req.body;
+    await serviceModel.editService(edtService);
+  
+    res.send();
+  });
 module.exports = router;

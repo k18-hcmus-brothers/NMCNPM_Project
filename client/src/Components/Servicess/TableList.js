@@ -15,32 +15,60 @@ function TableList() {
   const [service, setService] = useState([]);
   const [showAddForm, setShowAddForm] = useState(false);
 
-  
+  const fetchServiceData = async () => {
+    const result = await axios(server + "/service/service");
+    console.log("<<DATA::>",result.data);
+    setService(result.data);
+  };
 
   useEffect(() => {
-    const fetchServiceData = async () => {
-      const result = await axios(server + "/service/service");
-      console.log("<<DATA::>",result.data);
-      setService(result.data);
-    };
+    
     fetchServiceData();
   }, []);
 
   
+  const handleDelete = async(delService) => {
+    console.log("<<DELETE>>", delService);
+    try {
+      await axios.post(server + '/service/delete-service', delService);
+    }
+    catch(err) {
+      console.log(err);
+      return;
+    }
 
-  const handleDelete = (e) => {
-    console.log("<<DELETE>>", e.target);
+    fetchServiceData();
+
+    console.log("<<AFTER Delete>>", service);
   };
 
-  const addService = (newService) => {
-    // e.preventDefault();
+  const addService = async (newService) => {
+    console.log("<<ADD SERVICE>>",newService);
+    try {
+      await axios.post(server + '/service/add-service', newService);
+   
+    }
+    catch(err) {
+      console.log(err);
+      return;
+    }
+    fetchServiceData();
 
-    // newRole.loainhanvien = e.target.loainhanvien.value;
-    console.log(newService);
+    console.log("<<AFTER ADD>>", service);
   };
 
-  const updateService = (service) => {
-    console.log(service);
+  const updateService = async (editservice) => {
+    console.log("<<edit SERVICE>>",editservice);
+    try {
+      await axios.post(server + '/service/edit-service', editservice);
+     
+    }
+    catch(err) {
+      console.log(err);
+      return;
+    }
+
+    fetchServiceData();
   };
 
   function renderAddForm(e) {
@@ -70,7 +98,7 @@ function TableList() {
             <tbody class="service-tbody">
               <section>
               {service.map((Service) => (
-                  <ServiceItems name={Service.TenDV} price={Service.GiaDV} onDeleteItem={handleDelete} updateService={updateService}/>))}
+                  <ServiceItems id={Service.MaDV} name={Service.TenDV} price={Service.GiaDV} onDeleteItem={handleDelete} updateService={updateService}/>))}
               </section>
               <div class=" text-center">
             
