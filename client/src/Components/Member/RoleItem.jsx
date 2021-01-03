@@ -40,7 +40,7 @@ function RoleItem(props) {
   }
 
   const handleDeleteItem = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (window.confirm('delete the item?')) {
       props.onDeleteItem(e)
     }

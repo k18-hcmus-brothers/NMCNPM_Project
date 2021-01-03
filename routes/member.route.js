@@ -3,8 +3,11 @@ const router = express.Router();
 const roleModel = require('../models/role.model');
 const memberModel = require('../models/member.model');
 const passport = require('passport');
+const authenticate = require('../authentication/authenticate');
 
-router.get('/roles', async(req, res, next) => {
+// router.use(authenticate.auth);
+
+router.get('/roles', async (req, res, next) => {
   const roles = await roleModel.getAllRoles();
   let result = [];
 
@@ -21,7 +24,7 @@ router.get('/roles', async(req, res, next) => {
 
     let abilities = await roleModel.getAbilities(role.MaVaiTro);
     abilities = abilities.map(item => item.machucnang);
-    
+
     if (abilities.includes(1)) roleDetail.dathuydichvu = true;
     if (abilities.includes(2)) roleDetail.dathuyphong = true;
     if (abilities.includes(3)) roleDetail.themxoaphong = true;
@@ -34,29 +37,24 @@ router.get('/roles', async(req, res, next) => {
   res.send(result);
 });
 
-router.get('/members', async(req, res, next) => {
-  passport.authenticate('jwt', { session: false }, async (err, user, info) => {
-    if (err) {
-      console.log(err);
-    }
-    if (info) {
-      console.log(info.message);
-      res.status(401).send(info.message);
-    }
-    else {
-      const members = await memberModel.getAllMembers();
-      res.send(members);
-    }
-
-  })(req, res, next);
-  
+router.get('/members', authenticate.auth, async (req, res, next) => {
+  const members = await memberModel.getAllMembers();
+  res.send(members);
 });
 
-router.post('/add-member', async(req, res, next) => {
+router.post('/add-member', async (req, res, next) => {
   const newMember = req.body;
   await memberModel.addMember(newMember);
 
   res.send();
-})
+});
+
+
+router.post('/delete-member', async(req, res, next) => {
+  const id = req.body.id;
+  await memberModel.deleteMember(id);
+
+  res.status(200).send();
+}); 
 
 module.exports = router;

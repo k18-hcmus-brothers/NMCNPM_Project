@@ -4,7 +4,7 @@ const util = require("util");
 const db_query = util.promisify(db.query).bind(db);
 const load = (sql) => db_query(sql);
 const add = (entity, table) => db_query(`insert into ${table} set ?`, entity);
-const del = (condition, table) =>
+const del = (condition, table) => 
     db_query(`delete from ${table} where ?`, condition);
 const patch = (entity, condition, table) =>
     db_query(`update ${table} set ? where ?`, [entity, condition]);
@@ -27,6 +27,13 @@ exports.addMember = async (newMember) => {
     let MaNV = await load(query);
     MaNV = MaNV[0]['max(MaNV)'];
     await add({TenDangNhap: newMember.TenDangNhap, MaKhachSan: 1, MatKhau: newMember.SDT, MaNV: +MaNV}, "hethong");
+    return;
+}
+
+exports.deleteMember = async (id) => {
+    console.log(id);
+    await del({MaNV: +id}, "hethong");
+    await del({MaNV: +id}, "nhanvien");
     return;
 }
 

@@ -1,11 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
+import { useHistory } from 'react-router-dom'
 import '../Styles/Navigation.css'
 
+
+
 function Navigation(props) {
+  
+  const history = useHistory();
   const handleLogout = (e) => {
     e.preventDefault();
+    localStorage.removeItem('JWT');
+    history.push("/login");
   }
 
   return (

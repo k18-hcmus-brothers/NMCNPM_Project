@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import server from '../server';
 
-function Login() {
-    const [loggedIn, setLoggedIn] = useState(false);
+function Login(props) {
+    const history = useHistory();
+    // const [loggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
-        const accessString = localStorage.getItem('JWT');
-        console.log(accessString);
-        if (accessString) {
-            setLoggedIn(true);
+        if (localStorage.getItem('JWT')) {
+            history.push({ pathname: '/' });
         }
     }, []);
 
@@ -23,7 +22,8 @@ function Login() {
         try {
             const respone = await axios.post(server + '/users/login', user);
             localStorage.setItem("JWT", respone.data.token);
-            setLoggedIn(true);
+            props.onSetUser(respone.data.token);
+            history.push({ pathname: '/' });
         }
         catch (error) {
             console.log(error);
@@ -47,12 +47,6 @@ function Login() {
                                 <div className="form-group">
                                     <input className="form-control form-control-lg" name="password" id="password" type="password" placeholder="Password" />
                                 </div>
-                                <div className="form-group">
-                                    <label className="custom-control custom-checkbox">
-                                        <input className="custom-control-input" type="checkbox" />
-                                        <span className="custom-control-label">Remember Me</span>
-                                    </label>
-                                </div>
                                 <button type="submit" className="btn btn-primary btn-lg btn-block">Sign in</button>
                             </form>
                         </div>
@@ -64,9 +58,9 @@ function Login() {
     }
 
     return (
-        loggedIn 
-            ? <Redirect to={'/'} />
-            : RenderLogInPage()
+
+        RenderLogInPage()
+
     );
 
 }

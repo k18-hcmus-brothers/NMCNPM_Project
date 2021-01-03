@@ -5,6 +5,7 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const passport = require('./authentication/passport');
 const session = require('express-session');
+const authenticate = require ('./authentication/authenticate');
 
 require('./db/db')
 

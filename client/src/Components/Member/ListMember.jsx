@@ -57,13 +57,26 @@ function ListMember() {
     setExpand(!expand)
   };
 
-  const handleDelete = (e) => {
-    console.log("<<DELETE>>", e.target)
+  const deleteMember = async (e) => {
+    const MaNhanVien = e.target.value;
+    const data = {
+      id: MaNhanVien
+    }
 
+    // send delete request
+    try {
+      await axios.post(server + '/member/delete-member', data);
+    }
+    catch (error) {
+      console.log(error);
+    }
+
+    // fetch member agian after delete
+    fetchMemberData();
   };
 
   const addMember = async (newMember) => {
-    console.log(newMember);
+    // console.log(newMember);
     try {
       await axios.post(server + '/member/add-member', newMember);
       console.log("FINISH");
@@ -109,7 +122,7 @@ function ListMember() {
 
             <tbody className="member-tbody">
               {listMember.map((member) => {
-                return <ListMemberItem member={member} key={member.MaNV} roles={roles} />
+                return <ListMemberItem member={member} key={member.MaNV} roles={roles} deleteMember={deleteMember}/>
               })}
               {showAddForm
                 ? renderAddForm()

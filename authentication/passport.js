@@ -101,9 +101,11 @@ const opts = {
 passport.use(
     'jwt',
     new JWTstrategy(opts, async (jwt_payload, done) => {
+        console.log(jwt_payload);
         try {
             const userData = await memberModel.findUserByUserName(jwt_payload.TenDangNhap);
             const user = userData[0];
+            
             if (user) {
                 console.log('user found in db in passport');
                 done(null, user);

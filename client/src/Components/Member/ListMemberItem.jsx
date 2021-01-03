@@ -20,6 +20,14 @@ function ListMemberItem(props) {
     props.cancleAddForm();
   }
 
+  const handleDeleteItem = async (e) => {
+    e.preventDefault();
+    // send delete request
+    if (window.confirm('delete the item?')) {
+      await props.deleteMember(e);
+    }
+  }
+
   const onInputChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -51,7 +59,7 @@ function ListMemberItem(props) {
         </td>
         <td>
           <button className="btn btn-primary" form="form-role" onClick={handleUpdate}> {disabled ? "Update" : "Save"} </button>
-          <button className="btn btn-primary" > Xoá </button>
+          <button className="btn btn-primary" value={memberDetail.MaNV} onClick={handleDeleteItem}> Xoá </button>
         </td>
       </tr>
     )
