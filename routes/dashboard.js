@@ -23,9 +23,9 @@ router.get("/room", async (req, res) => {
 
 router.post("/addBill", async (req, res) => {
   try {
-    const { room, customer, billDetails } = req.body;
+    const { user, room, customer, billDetails } = req.body;
 
-    const result = await addBill(customer, room, billDetails);
+    const result = await addBill(customer, room, billDetails, user);
 
     res.json(result);
   } catch (err) {

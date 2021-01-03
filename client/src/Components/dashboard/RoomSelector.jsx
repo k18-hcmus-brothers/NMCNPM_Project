@@ -90,6 +90,11 @@ const RoomSelector = ({ data }) => {
   const checkInRoom = async (statesManager, dateIn, dateOut) => {
     try {
       let dataPackage = {
+        user: {
+          username: "GAGA",
+          id: 1,
+          hotelCode: 1,
+        },
         room: data,
         customer: {
           tenkh: statesManager.name.value,

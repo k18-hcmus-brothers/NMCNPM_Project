@@ -49,7 +49,7 @@ module.exports = {
     return patch(room, condition, "phong");
   },
 
-  async addForm(customer, room, billDetails) {
+  async addForm(customer, room, billDetails, user) {
     try {
       const customerDetail = await add(customer, "khachhang");
 
@@ -59,9 +59,9 @@ module.exports = {
         NgayDi: billDetails.dateOut,
         SoNguoi: billDetails.numberCustomer,
         MaKH: customerDetail.insertId,
-        MaNV: 1,
-        TenDangNhap: "GAGA",
-        MaKhachSan: 1,
+        MaNV: user.id,
+        TenDangNhap: user.username,
+        MaKhachSan: user.hotelCode,
         GhiChu: billDetails.note,
       };
       const billDetail = await add(bill, TABLE_RESERVE);
