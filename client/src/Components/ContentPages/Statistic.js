@@ -5,7 +5,7 @@ import MainStatics from "../Statistic/MainStatictis"
 function Statistic() {
   return (
     <div>
-      <Navigation title="Statistic" />
+      <Navigation title="Thống kê" />
       <Container fluid className="content-wrapper">
           <MainStatics/>
       </Container>
