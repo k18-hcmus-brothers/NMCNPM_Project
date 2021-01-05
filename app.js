@@ -8,6 +8,7 @@ require('./db/db')
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const memberRouter = require('./routes/member')
+const roomRouter=require('./routes/room');
 
 const app = express();
 
@@ -25,5 +26,6 @@ app.use(function (req, res, next) {
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/member', memberRouter)
+app.use('/room',roomRouter);
 
 module.exports = app;
