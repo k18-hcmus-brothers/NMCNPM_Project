@@ -13,7 +13,7 @@
     position: relative;
     width:200px;
     height:150px;
-    background-color: black;
+    background-color:darkgray;
     display:flex;
     justify-content: center;
     align-items: flex-end;
@@ -36,8 +36,9 @@
 .roomName{
    height:30x;
    width:200px;
-   background-color:blanchedalmond;
+   background-color:darkslategray;
    text-align: center;
+   color: darkgoldenrod;
 }
 
 .button-list button:hover{
@@ -90,3 +91,14 @@ margin-top:50px;
     display:flex;
 }
 
+.btnloaiphong:hover{
+    background-color:cornflowerblue;
+}
+
+.btnupdate:hover{
+    background-color:cornflowerblue;
+}
+
+.btn_luachon{
+    display: flex;
+}

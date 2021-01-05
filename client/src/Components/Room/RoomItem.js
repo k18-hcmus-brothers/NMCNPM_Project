@@ -16,8 +16,35 @@ function ListRoomItem(props) {
         setbtninfor(false);
     }
 
-    const onInputChangegia=()=>{
-        
+    const onInputChangegia = (e) => {
+        const value = e.target.value;
+        if (value.length === 0) {
+            if (window.confirm('Không được để trống')) {
+                return;
+            }
+        } else if (value <= 0) {
+            if (window.confirm('Giá không hợp lệ')) {
+                return;
+            }
+        } else {
+            rooms.forEach(element => {
+                element.gia = value;
+            });
+        }
+    }
+
+    const onInputChangnoithat = (e) => {
+        const value = e.target.value;
+        if (value === "") {
+            if (window.confirm('Không được để trống')) {
+                return;
+            }
+        } else {
+            const res = value.split(",");
+            rooms.forEach(element => {
+                element.noithat = res;
+            })
+        }
     }
 
     const Noithatitem = (props) => {
@@ -51,10 +78,10 @@ function ListRoomItem(props) {
                 <div className="roomItem">
 
                     <div className="infoRoom">
-                        <h3>Phong thuong</h3>
-                        <h3>Kich thuoc: {roomit.kickthuoc}m2</h3>
+                        <h3>Phòng {rooms[0].Loai}</h3>
+                        <h3>Kích thước: {roomit.kickthuoc}m2</h3>
                         <h4>{roomit.view}</h4>
-                        <h3>Noi that phong</h3>
+                        <h3>Nội thất phòng</h3>
                         <ul className="noithat">
                             {Roomnoithat}
                         </ul>
@@ -70,7 +97,9 @@ function ListRoomItem(props) {
         else setisUpdategia(false);
     }
 
-    const luuupdategia = () => {
+    const luuupdategia = async (e) => {
+        e.preventDefault();
+        //await props.updatePrice(rooms);
         setisUpdategia(false);
     }
 
@@ -78,8 +107,8 @@ function ListRoomItem(props) {
         const updateif = rooms[0];
         return (
             <div className="gdUpdategia">
-                <div>Gia Phong: {updateif.gia}</div>
-                <button onClick={updategia}>Chinh sua</button>
+                <div>Giá Phòng: {updateif.gia}</div>
+                <button className="btnupdate" onClick={updategia}>Chỉnh sửa</button>
             </div>
         )
     }
@@ -88,12 +117,15 @@ function ListRoomItem(props) {
         const updateif = rooms[0];
         return (
             <div className="gdUpdategia">
-                <div> Gia Phong:</div>
+                <div> Giá Phòng:</div>
                 <label>
-                    <input type="text" name="gia" placeholder={rooms[0].gia} onChange={onInputChangegia}/>
+                    <input type="text" name="gia" defaultValue={rooms[0].gia} onChange={onInputChangegia} />
                 </label>
-                <button className="btn btn-success" onClick={luuupdategia}>Luu</button>
-                <button className="btn btn-primary"onClick={updategia}>Huy</button>
+                <div className="btn_luachon">
+                    <button className="btn btn-success" onClick={luuupdategia}>Lưu</button>
+                    <button className="btn btn-primary" onClick={updategia}>Hủy</button>
+                </div>
+
             </div>
         )
     }
@@ -104,7 +136,9 @@ function ListRoomItem(props) {
         else setisUpdatenoithat(false);
     }
 
-    const luuupdatenoithat = () => {
+    const luuupdatenoithat = async (e) => {
+        e.preventDefault();
+        //await props.updateFurniture(rooms[0].noithat);
         setisUpdatenoithat(false);
 
     }
@@ -116,8 +150,8 @@ function ListRoomItem(props) {
         return (
             <div>
                 <div className="updateItem">
-                    <div>Noi that phong</div>
-                    <button onClick={updatenoithat}>Chinh sua</button>
+                    <div>Nội thất phòng</div>
+                    <button className="btnupdate" onClick={updatenoithat}>Chỉnh sửa</button>
                 </div>
                 <div className="infonoithat">
                     <ul>
@@ -131,18 +165,21 @@ function ListRoomItem(props) {
     const UpdatenoithatEditview = () => {
         const updateif = rooms[0];
         const roomnoithat = rooms[0].noithat;
-        const Roomnoithat = roomnoithat.map((item) => { return <Noithatitem key={item.id} name={item.id} value={item} /> });
+        const Roomnoithat = roomnoithat.map((item) => { return <Noithatitem key={item.id} name={item.id} value={item} luuupdatenoithat={luuupdatenoithat} /> });
         return (
             <div>
                 <div className="updateItem">
-                    <div>Noi that phong</div>
+                    <div>Nội thất phòng</div>
                 </div>
                 <div className="infonoithat">
-                    <textarea cols="50" rows="10" placeholder={roomnoithat}>
+                    <textarea cols="50" rows="10" defaultValue={roomnoithat} onChange={onInputChangnoithat}>
 
                     </textarea>
-                    <button className="btn btn-success" onClick={luuupdatenoithat}>Luu</button>
-                    <button className="btn btn-primary" onClick={updatenoithat}>Huy</button>
+                    <div className="btn_luachon">
+                        <button className="btn btn-success" onClick={luuupdatenoithat}>Lưu</button>
+                        <button className="btn btn-primary" onClick={updatenoithat}>Hủy</button>
+                    </div>
+
                 </div>
             </div>
         )
@@ -173,7 +210,7 @@ function ListRoomItem(props) {
         return (
             <div className="gdphong">
                 <div className="dsphong">
-                    {roomif.map((room) => { return <Room key={room.id} name={room.id} roomit={room} /> }
+                    {roomif.map((room) => { return <Room key={room.id} name={room.id} roomit={room} luuupdategia={luuupdategia} /> }
                     )}
                 </div>
                 <div className="thongtinphong">
@@ -205,7 +242,7 @@ function ListRoomItem(props) {
     return (
         <div className="roombyloai">
             <div className="button-list">
-                <button className="btninfoRoom" on={handleInfo_Click}>Thông tin</button>
+                <button className="btninfoRoom" onClick={handleInfo_Click}>Thông tin</button>
                 <button className="btnupdateRoom" onClick={handleUpdate_Click}>Cập nhật</button>
             </div>
             <div className="eachroom">

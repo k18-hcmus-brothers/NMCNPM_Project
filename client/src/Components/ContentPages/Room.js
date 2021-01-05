@@ -3,128 +3,129 @@ import { Container } from 'react-bootstrap'
 import Navigation from '../Navigation'
 import ListRoom from '../Room/ListRoom'
 
+
 function Room() {
     const r = [
         [{
-            NameRoom: "Phong1",
-            kickthuoc: 25,
-            gia:500000,
+            NameRoom: "Phòng 1",
+            Loai:"Đơn",
+            kickthuoc: 10,
+            gia:300000,
             noithat: [
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd"
+                "Nệm",
+                "Máy lạnh",
+                "TV",
+                "Bồn tắm",
+                "Ghế Sofa"
             ],
-            view: "akjsdkad"
+            view: "Không gian thoáng mát phù, khung cảnh hướng ra biển."
         },
         {
-            NameRoom: "Phong2",
-            kickthuoc: 25,
-            gia:500000,
+            NameRoom: "Phòng 2",
+            Loai:"Đơn",
+            kickthuoc: 10,
+            gia:300000,
             noithat: [
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd"
+                "Nệm",
+                "Máy lạnh",
+                "TV",
+                "Bồn tắm",
+                "Ghế Sofa"
             ],
-            view: "akjsdkad"
+            view: "Không gian thoáng mát phù, khung cảnh hướng ra biển."
         },
         {
-            NameRoom: "Phong3",
-            kickthuoc: 25,
-            gia:500000,
+            NameRoom: "Phòng 3",
+            Loai:"Đơn",
+            kickthuoc: 10,
+            gia:300000,
             noithat: [
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd"
+                "Nệm",
+                "Máy lạnh",
+                "TV",
+                "Bồn tắm",
+                "Ghế Sofa"
             ],
-            view: "akjsdkad"
+            view: "Không gian thoáng mát phù, khung cảnh hướng ra biển."
         },
         {
-            NameRoom: "Phong4",
-            kickthuoc: 25,
-            gia:500000,
+            NameRoom: "Phòng 4",
+            Loai:"Đơn",
+            kickthuoc: 10,
+            gia:300000,
             noithat: [
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd"
+                "Nệm",
+                "Máy lạnh",
+                "TV",
+                "Bồn tắm",
+                "Ghế Sofa"
             ],
-            view: "akjsdkad"
+            view: "Không gian thoáng mát phù, khung cảnh hướng ra biển."
         }
         ],
         [{
-            NameRoom: "Phong5",
+            NameRoom: "Phòng 5",
+            Loai:"Đôi",
             kickthuoc: 25,
             gia:800000,
             noithat: [
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd"
+                "Nệm",
+                "Máy lạnh",
+                "TV",
+                "Bồn tắm",
+                "Ghế Sofa",
+                "Máy pha cafe",
+                "Ban công"
             ],
-            view: "akjsdkad"
+            view: "Không gian thoáng mát thoải mái, khung cảnh hướng ra biển, thích hợp cho các cặp đôi"
         },
         {
-            NameRoom: "Phong6",
+            NameRoom: "Phòng 6",
+            Loai:"Đôi",
             kickthuoc: 25,
             gia:800000,
             noithat: [
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd"
+                "Nệm",
+                "Máy lạnh",
+                "TV",
+                "Bồn tắm",
+                "Ghế Sofa",
+                "Máy pha cafe",
+                "Ban công"
             ],
-            view: "akjsdkad"
+            view: "Không gian thoáng mát thoải mái, khung cảnh hướng ra biển, thích hợp cho các cặp đôi"
         },
         {
-            NameRoom: "Phong7",
+            NameRoom: "Phòng 7",
+            Loai:"Đôi",
             kickthuoc: 25,
             gia:800000,
             noithat: [
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd"
+                "Nệm",
+                "Máy lạnh",
+                "TV",
+                "Bồn tắm",
+                "Ghế Sofa",
+                "Máy pha cafe",
+                "Ban công"
             ],
-            view: "akjsdkad"
+            view: "Không gian thoáng mát thoải mái, khung cảnh hướng ra biển, thích hợp cho các cặp đôi"
         },
         {
-            NameRoom: "Phong8",
+            NameRoom: "Phòng 8",
+            Loai:"Đôi",
             kickthuoc: 25,
             gia:800000,
             noithat: [
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd",
-                "sadhkajd"
+                "Nệm",
+                "Máy lạnh",
+                "TV",
+                "Bồn tắm",
+                "Ghế Sofa",
+                "Máy pha cafe",
+                "Ban công"
             ],
-            view: "akjsdkad"
+            view: "Không gian thoáng mát thoải mái, khung cảnh hướng ra biển, thích hợp cho các cặp đôi"
         }
         ]
     ]
