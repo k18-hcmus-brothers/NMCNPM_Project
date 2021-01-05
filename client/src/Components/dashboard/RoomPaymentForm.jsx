@@ -153,8 +153,9 @@ const RoomPaymentForm = ({ data, close, checkOut, updateNote }) => {
             }
             modal
             nested
+            closeOnDocumentClick
           >
-            <RoomServiceForm />
+            <RoomServiceForm data={data}/>
           </Popup>
         </div>
         <div className="form-group col-sm-6">

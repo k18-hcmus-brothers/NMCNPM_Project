@@ -59,9 +59,9 @@ module.exports = {
         NgayDi: billDetails.dateOut,
         SoNguoi: billDetails.numberCustomer,
         MaKH: customerDetail.insertId,
-        MaNV: user.id,
+        MaNV: +user.id,
         TenDangNhap: user.username,
-        MaKhachSan: user.hotelCode,
+        MaKhachSan: +user.hotelCode,
         GhiChu: billDetails.note,
       };
       const billDetail = await add(bill, TABLE_RESERVE);

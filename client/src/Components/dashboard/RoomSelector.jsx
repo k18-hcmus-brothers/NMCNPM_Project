@@ -73,7 +73,7 @@ const RoomSelector = ({ data }) => {
         NgayThanhToan: moment(new Date(), "YYYY-MM-DDThh:mm:ssZ").format(
           "YYYY-MM-DD hh:mm:ss"
         ),
-        TenDangNhap: "GAGA",
+        TenDangNhap: "nguyen123",
         MaKhachSan: 1,
         MaKH: MaKH,
         MaThuePhong: MaThuePhong,
@@ -91,8 +91,8 @@ const RoomSelector = ({ data }) => {
     try {
       let dataPackage = {
         user: {
-          username: "GAGA",
-          id: 1,
+          username: "nguyen123",
+          id: 51,
           hotelCode: 1,
         },
         room: data,
