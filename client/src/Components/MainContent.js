@@ -5,7 +5,7 @@ import Member from './ContentPages/Member'
 import Statistic from './ContentPages/Statistic'
 import Room from './ContentPages/Room'
 import Service from './ContentPages/Service'
-
+import InputItem from './Servicess/InputItem'
 
 function MainContent() {
     return (
@@ -19,6 +19,7 @@ function MainContent() {
                 <Route exact path="/member" component={Member} />
                 <Route exact path="/room" component={Room} />
                 <Route exact path="/service" component={Service}/>
+                <Route exact path="/service/add" component={InputItem}/>
             </Switch>
         </>
     )

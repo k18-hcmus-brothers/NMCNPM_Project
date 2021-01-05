@@ -26,10 +26,12 @@ input[type="checkbox"][disabled]:checked {
 
 input.member-input {
   width: 100%;
+  
 }
 
 input.member-input:disabled {
   border: none;
+  background-color: white;
 }
 
 select.member-input {

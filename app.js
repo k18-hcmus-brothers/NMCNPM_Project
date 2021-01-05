@@ -5,11 +5,11 @@ const logger = require("morgan");
 
 require("./db/db");
 
-const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
-const memberRouter = require("./routes/member");
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const memberRouter = require('./routes/member')
+const serviceRouter = require('./routes/service')
 const dashboardRouter = require("./routes/dashboard");
-
 const app = express();
 
 // app.use(logger('dev'));
@@ -26,9 +26,10 @@ app.use(function (req, res, next) {
   );
   next();
 });
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
-app.use("/member", memberRouter);
-app.use("/dashboard", dashboardRouter);
 
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/member', memberRouter);
+app.use('/service',serviceRouter);
+app.use("/dashboard", dashboardRouter);
 module.exports = app;
