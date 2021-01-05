@@ -15,7 +15,7 @@ function ListMember() {
   const [error, setError] = useState(false);
 
   const fetchMemberData = async () => {
-    let accessString = localStorage.getItem('JWT');
+    let accessString = sessionStorage.getItem('JWT');
     if (!accessString) {
       setError(true);
     }
@@ -103,6 +103,7 @@ function ListMember() {
 
   return (
     <>
+      
       <div className="content-box">
         <div>
           <span>Danh sách nhân viên</span>

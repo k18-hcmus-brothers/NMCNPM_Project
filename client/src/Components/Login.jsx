@@ -8,7 +8,7 @@ function Login(props) {
     // const [loggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
-        if (localStorage.getItem('JWT')) {
+        if (sessionStorage.getItem('JWT')) {
             history.push({ pathname: '/' });
         }
     }, []);
@@ -21,7 +21,8 @@ function Login(props) {
         }
         try {
             const respone = await axios.post(server + '/users/login', user);
-            localStorage.setItem("JWT", respone.data.token);
+            // localStorage.setItem("JWT", respone.data.token);
+            sessionStorage.setItem("JWT", respone.data.token);
             props.onSetUser(respone.data.token);
             history.push({ pathname: '/' });
         }

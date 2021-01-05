@@ -10,9 +10,8 @@ function Navigation(props) {
   
   const history = useHistory();
   const handleLogout = (e) => {
-    e.preventDefault();
-    localStorage.removeItem('JWT');
-    history.push("/login");
+    sessionStorage.clear();
+    // history.push("/login");
   }
 
   return (
@@ -26,7 +25,7 @@ function Navigation(props) {
               title={< ProfileImage src="/avatar.png" />}
               id="basic-nav-dropdown"
               alignRight>
-              <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+              <NavDropdown.Item href="/" onClick={handleLogout}>Logout</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
             </NavDropdown>

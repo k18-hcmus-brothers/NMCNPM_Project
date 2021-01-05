@@ -17,8 +17,7 @@ function MainContent() {
     }
     
     useEffect(() => {
-        console.log("Use Effect");
-        setUser(localStorage.getItem('JWT'));
+        setUser(sessionStorage.getItem('JWT'));
     },[]);
     return (
         <>  
@@ -28,10 +27,12 @@ function MainContent() {
                     <Redirect to="/dashboard" />
                 </Route>
                 {/* <Route exact path="/dashboard" component={Dashboard} /> */}
-                <ProtectedRoute exact path='/dashboard' user={user} component={Dashboard} />
-                <Route exact path="/statistic" component={Statistic} />
                 {/* <Route exact path="/member" component={Member} /> */}
+                <ProtectedRoute exact path='/dashboard' user={user} component={Dashboard} />
                 <ProtectedRoute exact path='/member' user={user} component={Member} />
+                <Route exact path="/statistic" component={Statistic} />
+                
+                
                 <Route exact path="/room" component={Room} />
                 <Route exact path="/service" component={Service}/>
                 <Route exact path="/unauthorized" component={() => <div>Unauthorized</div> }/>
