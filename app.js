@@ -7,12 +7,15 @@ const passport = require('./authentication/passport');
 const session = require('express-session');
 const authenticate = require ('./authentication/authenticate');
 
-require('./db/db')
+require("./db/db");
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const memberRouter = require('./routes/member.route');
 
+
+const memberRouter = require('./routes/member.route');
+const serviceRouter = require('./routes/service');
+const dashboardRouter = require("./routes/dashboard");
 const app = express();
 
 
@@ -23,7 +26,7 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use(passport.initialize());
 
@@ -35,9 +38,9 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', indexRouter);
-app.use('/users',  usersRouter);
-app.use('/member',  memberRouter);
-
-
+app.use('/users', usersRouter);
+app.use('/member', memberRouter);
+app.use('/service',serviceRouter);
+app.use("/dashboard", dashboardRouter);
 
 module.exports = app;

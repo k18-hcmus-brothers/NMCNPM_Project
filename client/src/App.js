@@ -11,9 +11,8 @@ function App() {
 
 
   return (
-    <div className="wrapper">
+    <div>
       <Router>
-        <Sidebar />
         <MainContent />
       </Router>
     </div>

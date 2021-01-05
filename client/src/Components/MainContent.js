@@ -7,6 +7,7 @@ import Room from './ContentPages/Room'
 import Service from './ContentPages/Service'
 import Login from './Login';
 import ProtectedRoute from './ProtectedRoute';
+import InputItem from './Servicess/InputItem'
 
 function MainContent() {
     const [user, setUser] = useState();
@@ -28,14 +29,19 @@ function MainContent() {
                 </Route>
                 {/* <Route exact path="/dashboard" component={Dashboard} /> */}
                 {/* <Route exact path="/member" component={Member} /> */}
+                {/* <Route exact path="/statistic" component={Statistic} /> */}
+                {/* <Route exact path="/room" component={Room} /> */}
+                {/* <Route exact path="/service" component={Service}/> */}
                 <ProtectedRoute exact path='/dashboard' user={user} component={Dashboard} />
                 <ProtectedRoute exact path='/member' user={user} component={Member} />
-                <Route exact path="/statistic" component={Statistic} />
+                <ProtectedRoute exact path='/statistic' user={user} component={Statistic} />
+                <ProtectedRoute exact path='/room' user={user} component={Room} />
+                <ProtectedRoute exact path='/service' user={user} component={Service} />
                 
                 
-                <Route exact path="/room" component={Room} />
-                <Route exact path="/service" component={Service}/>
+                
                 <Route exact path="/unauthorized" component={() => <div>Unauthorized</div> }/>
+                <Route exact path="/service/add" component={InputItem}/>
             </Switch>
         </>
     )
