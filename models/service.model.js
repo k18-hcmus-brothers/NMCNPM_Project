@@ -29,6 +29,10 @@ exports.deleteService = async (delservice) => {
     return;
 }
 exports.editService= async(edtservice)=>{
+    if(edtservice.TenDV===" "){
+        await patch({GiaDV: edtservice.GiaDV},{MaDV:edtservice.MaDV} ,"dichvu");
+    return;
+    }
     await patch({TenDV: edtservice.TenDV, GiaDV: edtservice.GiaDV},{MaDV:edtservice.MaDV} ,"dichvu");
     return;
 }
