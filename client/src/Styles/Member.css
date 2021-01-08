@@ -6,20 +6,43 @@
   display: block;
 }
 
-input[type="checkbox"][disabled]:checked{
+input[type="checkbox"][disabled]:checked {
   background-color: red;
   color: red;
 }
 
 .member-tbody {
-  display:block;
-  height:300px;
-  overflow:scroll;
-  overflow:overlay !important;
+  display: block;
+  overflow: scroll;
+  overflow: overlay !important;
 }
 
 .member-thead, .member-tbody .member-tr {
-  display:table;
-  width:100%;
-  table-layout:fixed;/* even columns width , fix width of table too*/
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  /* even columns width , fix width of table too*/
+}
+
+input.member-input {
+  width: 100%;
+  
+}
+
+input.member-input:disabled {
+  border: none;
+  background-color: white;
+}
+
+select.member-input {
+  width: 100%;
+}
+
+select.member-input:disabled {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 0.01px;
+  text-overflow: '';
+  border: none;
+  color: black;
 }

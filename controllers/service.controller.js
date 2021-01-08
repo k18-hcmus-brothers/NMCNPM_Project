@@ -1,8 +1,8 @@
-const memberModel = require('../models/member.model')
+const serviceModel = require('../models/service.model')
 
 
 exports.index = function(req, res, next) {
-    memberModel.list(function(err,  result) {
+    serviceModel.list(function(err,  result) {
         if (err) throw err
         res.send(result)
     })
