@@ -1,0 +1,63 @@
+.icon-box-lg {
+    height: 68px;
+    width: 68px;
+}
+.icon-circle-medium {
+    line-height: 1;
+    padding: 22px 2px;
+    text-align: center;
+    font-size: 12px;
+    display: inline-block;
+    border-radius: 100%;
+}
+.bg-info-light {
+    background-color: #dffaff !important;
+    color: #fff;
+}
+.mt-1, .my-1 {
+    margin-top: .25rem!important;
+}
+.float-right {
+    float: right!important;
+}
+.fa-fw {
+    text-align: center;
+    width: 1.25em;
+}
+.fa, .fas, .far, .fal, .fab {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}
+.fa-sm {
+    font-size: 24px !important;
+}
+.text-info {
+    color: #25d5f2 !important;
+}
+.text-secondary {
+    color: #ff407b !important;
+}
+.text-brand {
+    color: #ffc750 !important;
+}
+.bg-brand-light {
+    background-color: #fff2d5 !important;
+}
+.bg-secondary-light {
+    background-color: #ffdbe6 !important;
+}
+.bg-primary-light {
+    background-color: #dbdeff !important;
+    color: #fff !important;
+}
+.text-primary {
+    color: #5969ff !important;
+}
+.box-margin{
+    margin-top: 30px;
+}
