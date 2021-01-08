@@ -58,8 +58,8 @@ function ListMemberItem(props) {
           <input type="text" name="SDT" value={memberDetail.SDT} onChange={onInputChange} disabled={disabled ? "disabled" : ""} className="member-input" />
         </td>
         <td>
-          <button className="btn btn-primary" form="form-role" onClick={handleUpdate}> {disabled ? "Update" : "Save"} </button>
-          <button className="btn btn-primary" value={memberDetail.MaNV} onClick={handleDeleteItem}> Xoá </button>
+          <button className="btn btn-sm btn-success EditBtn" form="form-role" onClick={handleUpdate}> {disabled ? "Chỉnh sửa" : "Lưu"} </button>
+          <button className="btn btn-sm btn-danger" value={memberDetail.MaNV} onClick={handleDeleteItem}> Xoá </button>
         </td>
       </tr>
     )
@@ -85,8 +85,8 @@ function ListMemberItem(props) {
           <input type="text" name="SDT" onChange={onInputChange} className="member-input" />
         </td>
         <td>
-          <button form="form-role" className="btn btn-primary" onClick={handleAddItem}> Lưu </button>
-          <button className="btn btn-primary" onClick={props.cancleAddForm} > Huỷ </button>
+          <button form="form-role" className="btn btn-sm btn-success EditBtn" onClick={handleAddItem}> Lưu </button>
+          <button className="btn btn-sm btn-danger" onClick={props.cancleAddForm} > Huỷ </button>
         </td>
       </tr>
     );

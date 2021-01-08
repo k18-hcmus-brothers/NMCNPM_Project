@@ -105,10 +105,10 @@ function ListMember() {
       <div className="content-box">
         <div>
           <span>Danh sách nhân viên</span>
-          <button href="#" onClick={handleExpand}>-</button>
+          {/* <button href="#" onClick={handleExpand}>-</button> */}
         </div>
         <div className={"collapse " + (expand ? "show" : "")}>
-          <table className="table table-hover table-borderless">
+          <table className="table table-borderless">
             <thead className="member-thead">
               <tr>
                 <th scope="col">Tên nhân viên</th>
@@ -125,7 +125,7 @@ function ListMember() {
               })}
               {showAddForm
                 ? renderAddForm()
-                : <tr><td><button onClick={() => setShowAddForm(true)}>Add Item</button></td></tr>}
+                : <tr><td><button className="center btn btn-lg btn-primary" onClick={() => setShowAddForm(true)}>Thêm nhân viên</button></td></tr>}
             </tbody>
           </table>
         </div>
