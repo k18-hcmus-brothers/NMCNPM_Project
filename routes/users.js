@@ -9,6 +9,8 @@ router.get('/', (req, res, next) => {
   res.send('respond with a resource');
 });
 
+
+
 router.post('/login', (req, res, next) => {
   console.log(req.body);
   passport.authenticate('login', (err, user, info) => {
@@ -31,6 +33,7 @@ router.post('/login', (req, res, next) => {
         res.status(200).send({
           auth: true,
           token,
+          role: user.MaVaiTro,
           message: 'user found & logged in'
         });
       });
@@ -40,5 +43,20 @@ router.post('/login', (req, res, next) => {
   
 });
 
+
+router.get('/findUser', (req, res, next) => {
+  passport.authenticate('jwt', { session: false }, (err, user, info) => {
+    if (err) {
+      console.log(err);
+    }
+    if (info !== undefined) {
+      console.log(info.message);
+      res.status(401).send(info.message);
+    } 
+    else {
+      res.send(user);
+    }
+  })(req, res, next);
+});
 
 module.exports = router;

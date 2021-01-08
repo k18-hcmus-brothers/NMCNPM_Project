@@ -7,11 +7,6 @@ import axios from "axios";
 import server from "../../server";
 
 function TableList() {
-  const Serviecs=[
-       {name:"Giặt ủi",price:"50000"},
-       {name:"Nước lọc",price:"10000"},
-        {name:"BCS",price:"1000000000"},
-      ];
   const [service, setService] = useState([]);
   const [showAddForm, setShowAddForm] = useState(false);
 

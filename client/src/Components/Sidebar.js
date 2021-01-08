@@ -14,6 +14,7 @@ import "../Styles/Sidebar.css";
 
 function Sidebar() {
   const [show, setShow] = useState(false);
+  const role = sessionStorage.getItem('role');
 
   const dropdownToggle = (isShow, event, { source }) => {
     if (source === "click") setShow(isShow);
@@ -41,31 +42,35 @@ function Sidebar() {
           <FaChartLine className="mr-4" />
           Thống kê
         </NavLink>
-        <NavDropdown
-          show={show}
-          onToggle={dropdownToggle}
-          title={
-            <span className="mr-2 ">
-              <BsInboxesFill className="dropdown-title-icon" /> Quản lý
-            </span>
-          }
-          id="nav-dropdown"
-        >
-          <NavLink className="nav-link sidebar-item" to="/room">
-            <ImHome className="mr-4" />
-            Phòng
-          </NavLink>
+        {role == 1 &&
+          <NavDropdown
+            show={show}
+            onToggle={dropdownToggle}
+            title={
+              <span className="mr-2 ">
+                <BsInboxesFill className="dropdown-title-icon" /> Quản lý
+        </span>
+            }
+            id="nav-dropdown"
+          >
+            <NavLink className="nav-link sidebar-item" to="/room">
+              <ImHome className="mr-4" />
+        Phòng
+      </NavLink>
+            <NavLink className="nav-link sidebar-item" to="/service">
+              <MdRoomService className="mr-4" />
+        Dịch Vụ
+      </NavLink>
+            <NavLink className="nav-link sidebar-item" to="/member">
+              <BsPersonLinesFill className="mr-4" />
+        Nhân viên
+      </NavLink>
+     \
 
-          <NavLink className="nav-link sidebar-item" to="/service">
-            <MdRoomService className="mr-4" />
-            Dịch Vụ
-          </NavLink>
+    </NavDropdown>}
 
-          <NavLink className="nav-link sidebar-item" to="/member">
-            <BsPersonLinesFill className="mr-4" />
-            Nhân viên
-          </NavLink>
-        </NavDropdown>
+
+
       </Nav>
     </>
   );

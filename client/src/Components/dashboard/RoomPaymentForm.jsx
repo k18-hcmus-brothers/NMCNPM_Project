@@ -1,10 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Popup from "reactjs-popup";
 import FormError from "./FormError";
 import RoomServiceForm from "./RoomServiceForm";
+import axios from 'axios';
+import server from '../../server'
 const numeral = require("numeral");
 
 const RoomPaymentForm = ({ data, close, checkOut, updateNote }) => {
+
+  const [services, setServices] = useState([]);
+  const [listOfService, setListOfService] = useState([]);
+  const [totalPriceService, setTotalPriceService] = useState(0);
+
+  const fetchServiceData = async () => {
+    const response = await axios.get(server + "/service/get-service?mathuephong=" + data.MaThuePhongHienTai);
+    console.log("<<RESPONE>>",response.data);
+    setServices(response.data);
+  }
+
+  const fetchListOfService = async () => {
+    const respone = await axios.get(server + '/service/service');
+    setListOfService(respone.data);
+  }
+
+  const appendService = async (newService) => {
+    const respone = await axios.post(server + "/service/append-service", newService);
+
+    fetchServiceData();
+  }
+
+  const removeService = async (maSuDungDichVu) => {
+    const respone = await axios.post(server + "/service/remove-service", {maSuDungDichVu: maSuDungDichVu});
+
+    fetchServiceData();
+  }
+
+  useEffect(() => {
+    fetchServiceData();
+    fetchListOfService();
+  },[])
+
+  useEffect(()=> {
+    let total = 0;
+    services.forEach(service => {
+      total += (service.SoLuong * service.GiaDV);
+      setTotalPriceService(total);
+    });
+  },[services]);
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -46,10 +90,10 @@ const RoomPaymentForm = ({ data, close, checkOut, updateNote }) => {
 
   const calculateTotalPrice = () => {
     if (discount.errorMessage.length > 0) {
-      return data.Gia * 2;
+      return data.Gia + totalPriceService;
     }
 
-    return data.Gia * 2 - discount.value;
+    return data.Gia + totalPriceService - discount.value;
   };
 
   if (data === null || data === undefined) return <div></div>;
@@ -125,7 +169,7 @@ const RoomPaymentForm = ({ data, close, checkOut, updateNote }) => {
             <input
               type="text"
               className="form-control col-sm-8"
-              value={numeral(data.Gia).format(0, 0)}
+              value={numeral(totalPriceService).format(0, 0)}
               readOnly
             />
           </div>
@@ -152,10 +196,9 @@ const RoomPaymentForm = ({ data, close, checkOut, updateNote }) => {
               </button>
             }
             modal
-            nested
             closeOnDocumentClick
           >
-            <RoomServiceForm data={data}/>
+              {(close) => <RoomServiceForm data={data} close={close} services={services} listOfService={listOfService} appendService={appendService} removeService={removeService}/>}
           </Popup>
         </div>
         <div className="form-group col-sm-6">

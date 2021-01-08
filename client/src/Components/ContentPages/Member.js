@@ -6,10 +6,9 @@ import ListMember from '../Member/ListMember'
 import Sidebar from '../Sidebar'
 
 function Member() {
-
     return (
         <div className="wrapper">
-            <Sidebar />
+            <Sidebar/>
             <div>
                 <Navigation title="Nhân viên" />
                 <Container fluid className="content-wrapper">

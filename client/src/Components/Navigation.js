@@ -13,6 +13,10 @@ function Navigation(props) {
     sessionStorage.clear();
     // history.push("/login");
   }
+  const getUserInfo = (e) => {
+    e.preventDefault();
+    history.push('/info')
+  }
 
   return (
     <>
@@ -25,9 +29,10 @@ function Navigation(props) {
               title={< ProfileImage src="/avatar.png" />}
               id="basic-nav-dropdown"
               alignRight>
-              <NavDropdown.Item href="/" onClick={handleLogout}>Logout</NavDropdown.Item>
+              
+              <NavDropdown.Item onClick={getUserInfo}>Tài khoản</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+              <NavDropdown.Item href="/" onClick={handleLogout}>Đăng xuất</NavDropdown.Item>
             </NavDropdown>
             
           </Nav>

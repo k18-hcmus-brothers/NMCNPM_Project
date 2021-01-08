@@ -21,8 +21,8 @@ function Login(props) {
         }
         try {
             const respone = await axios.post(server + '/users/login', user);
-            // localStorage.setItem("JWT", respone.data.token);
             sessionStorage.setItem("JWT", respone.data.token);
+            sessionStorage.setItem('role', respone.data.role)
             props.onSetUser(respone.data.token);
             history.push({ pathname: '/' });
         }

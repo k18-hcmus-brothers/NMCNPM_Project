@@ -23,7 +23,7 @@ const RoomSelector = ({ data }) => {
               id: currentBill,
             },
           });
-          console.log(currentBill);
+          // console.log(currentBill);
           setBillInfo(bill.data[0]);
         }
       } catch (err) {

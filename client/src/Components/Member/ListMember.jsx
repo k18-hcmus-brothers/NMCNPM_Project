@@ -62,7 +62,6 @@ function ListMember() {
     const data = {
       id: MaNhanVien
     }
-
     // send delete request
     try {
       await axios.post(server + '/member/delete-member', data);
@@ -79,7 +78,6 @@ function ListMember() {
     // console.log(newMember);
     try {
       await axios.post(server + '/member/add-member', newMember);
-      console.log("FINISH");
     }
     catch (err) {
       console.log(err);
