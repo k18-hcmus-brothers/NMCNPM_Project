@@ -11,7 +11,7 @@ router.get("/rooms", async (req, res) => {
 
 router.get("/bill", async (req, res) => {
   const bill = await reserveFormModel.getFormDataById(req.query.id);
-
+  console.log(bill);
   res.send(bill);
 });
 

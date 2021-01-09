@@ -17,6 +17,7 @@ const RoomSelector = ({ data }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log("FetchBillInfo");
         if (currentBill !== null) {
           const bill = await axios.get(server + "/dashboard/bill", {
             params: {
@@ -25,6 +26,7 @@ const RoomSelector = ({ data }) => {
           });
           // console.log(currentBill);
           setBillInfo(bill.data[0]);
+          console.log(currentBill);
         }
       } catch (err) {
         console.log(err);
@@ -49,11 +51,13 @@ const RoomSelector = ({ data }) => {
   };
 
   const getPopUpForm = (close) => {
+    console.log(status);
     if (status === "ok") {
       return (
         <RoomBookingForm data={data} close={close} checkIn={checkInRoom} />
       );
     } else if (status === "busy") {
+      console.log(billInfo);
       return (
         <RoomPaymentForm
           data={billInfo}
