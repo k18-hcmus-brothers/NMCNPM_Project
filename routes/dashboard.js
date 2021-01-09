@@ -33,6 +33,13 @@ router.post("/addBill", async (req, res) => {
   }
 });
 
+router.post("/clean-room", async (req, res) => {
+  const room = await reserveFormModel.getRoomById(req.body.MaPhong);
+  room.TinhTrang = "ok";
+  await reserveFormModel.updateRoom(room);
+  res.json("ok");
+});
+
 router.post("/bill/note", async (req, res) => {
   try {
     const { id, note } = req.body;
@@ -51,7 +58,7 @@ router.post("/bill/payment", async (req, res) => {
     const bill = req.body;
 
     const room = await reserveFormModel.getRoomById(bill.MaPhong);
-    room.TinhTrang = "ok";
+    room.TinhTrang = "dirty";
     room.MaThuePhongHienTai = null;
     await reserveFormModel.updateRoom(room);
     delete bill.MaPhong;

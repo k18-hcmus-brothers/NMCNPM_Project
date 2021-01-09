@@ -10,17 +10,27 @@ const RoomPaymentForm = ({ data, close, checkOut, updateNote }) => {
   const [services, setServices] = useState([]);
   const [listOfService, setListOfService] = useState([]);
   const [totalPriceService, setTotalPriceService] = useState(0);
+  let accessString = sessionStorage.getItem("JWT");
 
   const fetchServiceData = async () => {
     const response = await axios.get(
-      server + "/service/get-service?mathuephong=" + data.MaThuePhongHienTai
+      server + "/service/get-service?mathuephong=" + data.MaThuePhongHienTai,
+      {
+        headers: {
+          Authorization: `JWT ${accessString}`,
+        },
+      }
     );
     console.log("<<RESPONE>>", response.data);
     setServices(response.data);
   };
 
   const fetchListOfService = async () => {
-    const respone = await axios.get(server + "/service/service");
+    const respone = await axios.get(server + "/service/service", {
+      headers: {
+        Authorization: `JWT ${accessString}`,
+      },
+    });
     console.log("Service");
     setListOfService(respone.data);
   };
@@ -28,16 +38,29 @@ const RoomPaymentForm = ({ data, close, checkOut, updateNote }) => {
   const appendService = async (newService) => {
     const respone = await axios.post(
       server + "/service/append-service",
-      newService
+      newService,
+      {
+        headers: {
+          Authorization: `JWT ${accessString}`,
+        },
+      }
     );
 
     fetchServiceData();
   };
 
   const removeService = async (maSuDungDichVu) => {
-    const respone = await axios.post(server + "/service/remove-service", {
-      maSuDungDichVu: maSuDungDichVu,
-    });
+    const respone = await axios.post(
+      server + "/service/remove-service",
+      {
+        maSuDungDichVu: maSuDungDichVu,
+      },
+      {
+        headers: {
+          Authorization: `JWT ${accessString}`,
+        },
+      }
+    );
 
     fetchServiceData();
   };

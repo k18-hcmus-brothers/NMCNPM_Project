@@ -10,6 +10,7 @@ const axios = require("axios");
 const moment = require("moment");
 
 const RoomSelector = ({ data }) => {
+  let accessString = sessionStorage.getItem("JWT");
   const [status, setStatus] = useState(data.TinhTrang);
   const [currentBill, setBill] = useState(data.MaThuePhongHienTai);
   const [billInfo, setBillInfo] = useState(null);
@@ -22,6 +23,9 @@ const RoomSelector = ({ data }) => {
           const bill = await axios.get(server + "/dashboard/bill", {
             params: {
               id: currentBill,
+            },
+            headers: {
+              Authorization: `JWT ${accessString}`,
             },
           });
           // console.log(currentBill);
@@ -37,10 +41,18 @@ const RoomSelector = ({ data }) => {
 
   const updateNote = async (note) => {
     try {
-      await axios.post(server + "/dashboard/bill/note", {
-        id: billInfo.MaThuePhong,
-        note: note,
-      });
+      await axios.post(
+        server + "/dashboard/bill/note",
+        {
+          id: billInfo.MaThuePhong,
+          note: note,
+        },
+        {
+          headers: {
+            Authorization: `JWT ${accessString}`,
+          },
+        }
+      );
 
       const bill = { ...billInfo };
       bill.GhiChu = note;
@@ -67,7 +79,40 @@ const RoomSelector = ({ data }) => {
         />
       );
     }
-    return;
+    return (
+      <div style={{ width: "300px" }}>
+        <div className="m-2">
+          <p>Xác nhận đã dọn phòng?</p>
+          <div className="row">
+            <button
+              className="btn btn-primary mx-1"
+              onClick={() => cleanRoom(close)}
+            >
+              Xác nhận
+            </button>
+            <button className="btn btn-danger mx-1 mr-5" onClick={close}>
+              Huỷ bỏ
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const cleanRoom = async (close) => {
+    console.log(close);
+    const status = await axios({
+      method: "post",
+      url: server + "/dashboard/clean-room",
+      data: {
+        MaPhong: data.MaPhong,
+      },
+      headers: {
+        Authorization: `JWT ${accessString}`,
+      },
+    });
+    setStatus(status.data);
+    close();
   };
 
   const checkOutRoom = async (price, MaKH, MaThuePhong) => {
@@ -83,10 +128,14 @@ const RoomSelector = ({ data }) => {
         MaThuePhong: MaThuePhong,
         MaPhong: data.MaPhong,
       };
-      const res = await axios.post(server + "/dashboard/bill/payment", bill);
+      const res = await axios.post(server + "/dashboard/bill/payment", bill, {
+        headers: {
+          Authorization: `JWT ${accessString}`,
+        },
+      });
 
       setBill(null);
-      setStatus("ok");
+      setStatus("dirty");
     } catch (err) {
       console.log(err);
     }
@@ -119,7 +168,12 @@ const RoomSelector = ({ data }) => {
 
       const response = await axios.post(
         server + "/dashboard/addBill",
-        dataPackage
+        dataPackage,
+        {
+          headers: {
+            Authorization: `JWT ${accessString}`,
+          },
+        }
       );
       console.log(response);
       setBill(response.data);
