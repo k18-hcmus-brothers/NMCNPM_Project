@@ -2,6 +2,7 @@ import React from 'react'
 import { Container } from 'react-bootstrap'
 import Navigation from '../Navigation'
 import Sidebar from '../Sidebar'
+import ListRoom from '../Room/ListRoom'
 
 function Room() {
     return (
@@ -10,7 +11,7 @@ function Room() {
             <div>
                 <Navigation title="Phòng" />
                 <Container fluid>
-
+                    <ListRoom/>
                 </Container>
             </div>
         </div>
