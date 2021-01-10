@@ -24,13 +24,13 @@ function Navigation(props) {
         <Navbar.Brand className="navbar-title">{props.title}</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav ">
-          <Nav className="ml-auto">
+          <Nav className="ml-auto" alignRight >
             <NavDropdown
+              alignRight={true}
               title={< ProfileImage src="/avatar.png" />}
-              id="basic-nav-dropdown"
-              alignRight>
+              id="basic-nav-dropdown">
               
-              <NavDropdown.Item onClick={getUserInfo}>Tài khoản</NavDropdown.Item>
+              <NavDropdown.Item onClick={getUserInfo}>Đổi mật khẩu</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="/" onClick={handleLogout}>Đăng xuất</NavDropdown.Item>
             </NavDropdown>

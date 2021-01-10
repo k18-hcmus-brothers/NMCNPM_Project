@@ -10,10 +10,28 @@ const axios = require("axios");
 const moment = require("moment");
 
 const RoomSelector = ({ data }) => {
+
   let accessString = sessionStorage.getItem("JWT");
   const [status, setStatus] = useState(data.TinhTrang);
   const [currentBill, setBill] = useState(data.MaThuePhongHienTai);
   const [billInfo, setBillInfo] = useState(null);
+
+  const [user, setUser] = useState({});
+  const fetchUserData = async () => {
+    let accessString = sessionStorage.getItem('JWT');
+    const respone = await axios({
+        method: 'get',
+        url: server + "/users/findUser",
+        headers: {
+            Authorization: `JWT ${accessString}`,
+        },
+    });
+    setUser(respone.data);
+}
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -122,7 +140,7 @@ const RoomSelector = ({ data }) => {
         NgayThanhToan: moment(new Date(), "YYYY-MM-DDThh:mm:ssZ").format(
           "YYYY-MM-DD hh:mm:ss"
         ),
-        TenDangNhap: "nguyen123",
+        TenDangNhap: user.TenDangNhap,
         MaKhachSan: 1,
         MaKH: MaKH,
         MaThuePhong: MaThuePhong,
@@ -144,8 +162,8 @@ const RoomSelector = ({ data }) => {
     try {
       let dataPackage = {
         user: {
-          username: "nguyen123",
-          id: 51,
+          username: user.TenDangNhap,
+          id: user.MaNV,
           hotelCode: 1,
         },
         room: data,
