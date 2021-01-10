@@ -9,45 +9,26 @@ import '../../Styles/Statistics.css'
 
 function MainStatictis() {
 
-  const [roles, setRoles] = useState([])
+  const [statistic, setStatistic] = useState([]);
+  const [showAddForm, setShowAddForm] = useState(false);
 
-  const [expand, setExpand] = useState(true)
+  const fetchServiceData = async () => {
+    const result = await axios(server + "/statistic/");
+    console.log("<<DATA::>",result.data);
+    setStatistic(result.data);
+  };
 
-  // eslint-disable-next-line
-  useEffect(async () => {
-    const result = await axios(
-      server + '/member/'
-    )
-    // console.log("<<Role.js useEffect>>", result.data)
-
-    setRoles(result.data)
+  useEffect(() => {
+    
+    fetchServiceData();
   }, []);
 
-  function handleExpand(e) {
-    e.preventDefault()
-    setExpand(!expand)
-  }
-
-  function handleCheckboxChange(e) {
-    const name = e.target.getAttribute("name")
-    const index = e.target.getAttribute("index")
-    setRoles(prevState => {
-      let roleItems = [...prevState]
-      // console.log(roleItems[index][name])
-      roleItems[index][name] = !roleItems[index][name]
-      return roleItems;
-    })
-  }
-
-  function handleDelete(e) {
-    console.log("<<DELETE>>", e.target)
-
-  }
+ 
 
   return (
     <div>
         <div className="box-margin">
-        <StatictisBox/>
+        <StatictisBox price={statistic.TongTien} guest={statistic.TongKhach} room={statistic.TongPhong}/>
         </div>
         
         <div className="content-box box-margin">

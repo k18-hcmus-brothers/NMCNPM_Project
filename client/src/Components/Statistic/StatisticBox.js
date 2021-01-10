@@ -24,7 +24,7 @@ function CustomerList(props) {
 	                                <div class="card-body">
 	                                    <div class="d-inline-block">
 	                                        <h5 class="text-muted">Tổng doanh thu</h5>
-	                                        <h2 class="mb-0"> 10,28,056</h2>
+	                                        <h2 class="mb-0"> {props.price}</h2>
 	                                    </div>
 	                                    <div class="float-right icon-circle-medium  icon-box-lg  bg-brand-light mt-1">
 	                                        {/* <i class="fa fa-eye fa-fw fa-sm text-info"></i> */}
@@ -39,7 +39,7 @@ function CustomerList(props) {
 	                                <div class="card-body">
 	                                    <div class="d-inline-block">
 	                                        <h5 class="text-muted">Tổng lượng khách</h5>
-	                                        <h2 class="mb-0"> 24,763</h2>
+	                                        <h2 class="mb-0"> {props.guest}</h2>
 	                                    </div>
 	                                    <div class="float-right icon-circle-medium  icon-box-lg  bg-primary-light mt-1">
 	                                        {/* <i class="fa fa-user fa-fw fa-sm text-primary"></i> */}
@@ -54,7 +54,7 @@ function CustomerList(props) {
 	                                <div class="card-body">
 	                                    <div class="d-inline-block">
 	                                        <h5 class="text-muted">Số phòng đã thuê</h5>
-	                                        <h2 class="mb-0">14</h2>
+	                                        <h2 class="mb-0">{props.room}</h2>
 	                                    </div>
 	                                    <div class="float-right icon-circle-medium  icon-box-lg  bg-secondary-light mt-1">
 	                                        {/* <i class="fa fa-handshake fa-fw fa-sm text-secondary"></i> */}
