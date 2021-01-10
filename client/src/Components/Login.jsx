@@ -19,15 +19,17 @@ function Login(props) {
             username: e.target.username.value,
             password: e.target.password.value
         }
+        let respone = new Response();
         try {
-            const respone = await axios.post(server + '/users/login', user);
+            respone = await axios.post(server + '/users/login', user);
             sessionStorage.setItem("JWT", respone.data.token);
             sessionStorage.setItem('role', respone.data.role)
             props.onSetUser(respone.data.token);
             history.push({ pathname: '/' });
         }
         catch (error) {
-            console.log(error);
+            alert("Sai tên đăng nhập hoặc mật khẩu");
+
         }
 
     };

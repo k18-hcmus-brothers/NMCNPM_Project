@@ -2,6 +2,7 @@ import React from 'react'
 import { Container } from 'react-bootstrap'
 import Navigation from '../Navigation'
 import Sidebar from '../Sidebar'
+import MainStatics from "../Statistic/MainStatictis"
 
 function Statistic() {
     return (
@@ -10,7 +11,7 @@ function Statistic() {
             <div>
                 <Navigation title="Thống kê" />
                 <Container fluid>
-
+                <MainStatics/>
                 </Container>
             </div>
 

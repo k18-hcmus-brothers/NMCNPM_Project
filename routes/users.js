@@ -59,4 +59,22 @@ router.get('/findUser', (req, res, next) => {
   })(req, res, next);
 });
 
+router.post('/change-password', (req, res, next) => {
+  passport.authenticate('jwt', { session: false }, (err, user, info) => {
+    if (err) {
+      console.log(err);
+    }
+    if (info !== undefined) {
+      console.log(info.message);
+      res.status(401).send(info.message);
+    } 
+    else {
+      const newPassword = req.body.newPassword;
+      console.log(newPassword);
+      memberModel.changePassword(user.TenDangNhap, newPassword);
+      res.send();
+    }
+  })(req, res, next);
+});
+
 module.exports = router;

@@ -46,3 +46,18 @@ exports.findUserByUserName = async (username) => {
     const user = await load(query);
     return user;
 }
+
+exports.changePassword = async (username, newPassword) => {
+    await patch({MatKhau: newPassword}, {TenDangNhap: username}, "hethong")
+}
+
+exports.updateMember = async (userData) => {
+    const MaNV = userData.MaNV;
+    const updatedUserData = {
+        MaVaiTro: +userData.MaVaiTro,
+        SDT: userData.SDT,
+        TenNV: userData.TenNV,
+
+    }
+    await patch(updatedUserData, {MaNV: MaNV}, "nhanvien");
+}

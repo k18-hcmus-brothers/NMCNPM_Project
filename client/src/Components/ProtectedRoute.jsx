@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-const ProtectedRoute = ({ component: Component, user, role, ...rest }) => {
+const ProtectedRoute = ({ component: Component, role, ...rest }) => {
     return (
         <Route {...rest} render = {
             props => {
-                if (user) {
-                        return <Component {...rest} {...props} role={role}/>
+                if (sessionStorage.getItem('JWT')) {
+                        return <Component {...rest} {...props}/>
                 } else {
                     return <Redirect to={
                         {
