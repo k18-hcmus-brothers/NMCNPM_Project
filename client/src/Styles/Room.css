@@ -1,0 +1,98 @@
+.roomItem{
+    position: relative;
+    margin-top: 50px;
+
+    display: flex;
+}
+
+.button-list button{
+    width:150px;
+}
+
+.room{
+    position: relative;
+    width:200px;
+    height:150px;
+    background-color:darkgray;
+    display:flex;
+    justify-content: center;
+    align-items: flex-end;
+    border-radius: 10px;
+}
+
+.infoRoom{
+    position: relative;
+    margin-left: 250px;
+}
+
+.roomName{
+    border-radius: 10px;
+}
+
+.roomList{
+    position: relative;
+}
+
+.roomName{
+   height:30x;
+   width:200px;
+   background-color:darkslategray;
+   text-align: center;
+   color: darkgoldenrod;
+}
+
+.button-list button:hover{
+    background-color:cornflowerblue;
+}
+
+.updateInfo{
+margin-top:30px;
+}
+
+.updateItem {
+    margin-bottom: 20px;
+}
+
+
+
+.infonoithat{
+    position: relative;
+    margin-left: 50px;   
+}
+
+.updateItem div{
+    width:150px;
+}
+
+.noithat{
+    margin-left: 50px;
+}
+
+.loaiRoom .btnloaiphong{
+    margin-bottom: 20px;
+    width:150px;
+}
+
+.gdphong{
+    display: flex;
+}
+
+.giaodienphong{
+    margin-left: 200px;
+    margin-top:30px;
+}
+
+.listbtnloaiphong{
+    margin-left:190px;
+    margin-top: -40px;
+    display:flex;
+}
+
+.btnloaiphong:hover{
+    background-color:cornflowerblue;
+}
+
+.btnupdate:hover{
+    background-color:cornflowerblue;
+}
+

@@ -76,7 +76,7 @@ function Info() {
                 <div className="col-12">
                     <div className="card mt-5">
                         <div className="card-header info">
-                            <h3 className="card-title font-weight-bold">Edit password</h3>
+                            <h3 className="card-title font-weight-bold">Đổi mật khẩu</h3>
                         </div>
                         <div className="card-body  col-12">
                             <div >
