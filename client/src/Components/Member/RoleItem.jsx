@@ -82,8 +82,8 @@ function RoleItem(props) {
             type="checkbox" checked={roleDetail.xemxuatbaocao ? "checked" : ""} disabled={disabled ? "disabled" : ""} />
         </td>
         <td>
-          <button className="btn btn-primary" form="form-role" onClick={handleUpdate}> {disabled ? "Update" : "Save"} </button>
-          <button className="btn btn-primary" index={props.role.id} onClick={handleDeleteItem}> Xoá </button>
+          <button className="btn btn-sm btn-success EditBtn" form="form-role" onClick={handleUpdate}> {disabled ? "Chỉnh sửa" : "Lưu"} </button>
+          <button className="btn btn-sm btn-danger" index={props.role.id} onClick={handleDeleteItem}> Xoá </button>
         </td>
       </tr>
     )
@@ -115,8 +115,8 @@ function RoleItem(props) {
             <input form="form-role" name="xemxuatbaocao" type="checkbox" onChange={onCheckboxChange}/>
           </td>
           <td>
-            <button form="form-role" className="btn btn-primary" type="submit" onClick={handleAddItem} > Lưu </button>
-            <button className="btn btn-primary" onClick={props.cancleAddForm} > Huỷ </button>
+            <button form="form-role" className="btn btn-sm btn-success EditBtn" type="submit" onClick={handleAddItem} > Lưu </button>
+            <button className="btn btn-sm btn-danger" onClick={props.cancleAddForm} > Huỷ </button>
           </td>
         </tr>
       </>
