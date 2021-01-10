@@ -57,11 +57,11 @@ function Role() {
       <div className="content-box">
         <div>
           <span>Danh sách vai trò</span>
-          <button href="#" onClick={handleExpand}>-</button>
+          {/* <button href="#" onClick={handleExpand}>-</button> */}
         </div>
         <div className={"collapse " + (expand ? "show" : "")}>
           <form id="form-role" onSubmit={addRole}>
-            <table className="table table-hover table-borderless">
+            <table className="table table-borderless">
               <thead className="member-thead">
                 <tr>
                   <th scope="col">Tên vai trò</th>
@@ -79,10 +79,11 @@ function Role() {
                 {roles.map((role) => {
                   return <RoleItem key={role.mavaitro} name={role.mavaitro} role={role} onDeleteItem={handleDelete} updateRole={updateRole}/>
                 })}
-
+               
                 {showAddForm
                   ? renderAddForm()
-                  : <tr><td><button onClick={() => setShowAddForm(true)}>Add Item</button></td></tr>}
+                  : <tr><td><button className="center btn btn-lg btn-primary" onClick={() => setShowAddForm(true)}>Thêm vai trò</button> </td></tr>}
+                 
               </tbody>
             </table>
           </form>

@@ -35,20 +35,17 @@ function ListMember() {
         console.error("ERROR " + error);
       }
     }
+  };
 
+  const fetchRoleData = async () => {
+    const result = await axios(
+      server + '/member/roles'
+    );
+    setRoles(result.data);
   };
 
   useEffect(() => {
-
     fetchMemberData();
-
-    const fetchRoleData = async () => {
-      const result = await axios(
-        server + '/member/roles'
-      );
-
-      setRoles(result.data);
-    };
     fetchRoleData();
   }, []);
 
@@ -69,28 +66,43 @@ function ListMember() {
     catch (error) {
       console.log(error);
     }
-
     // fetch member agian after delete
     fetchMemberData();
   };
 
   const addMember = async (newMember) => {
     // console.log(newMember);
-    try {
-      await axios.post(server + '/member/add-member', newMember);
+    let accessString = sessionStorage.getItem('JWT');
+    const respone = await axios({
+      method: 'get',
+      url: server + "/member/members",
+      headers: {
+        Authorization: `JWT ${accessString}`,
+      },
+    });
+    const existMembers = respone.data;
+    const existUsernames = existMembers.map(member => member.TenDangNhap);
+    console.log(existUsernames);
+    // check if newMember.TenDangNhap already exist
+    if (existUsernames.includes(newMember.TenDangNhap)) {
+      alert("Tên đăng nhập đã tồn tại.\n Vui lòng chọn tên đăng nhập khác")
     }
-    catch (err) {
-      console.log(err);
-      return;
+    else {
+      try {
+        await axios.post(server + '/member/add-member', newMember);
+      }
+      catch (err) {
+        console.log(err);
+        return;
+      }
+      fetchMemberData();
     }
-
-    fetchMemberData();
-
-    console.log("<<AFTER ADD>>", listMember);
+    // console.log("<<AFTER ADD>>", listMember);
   };
 
-  const updateMember = (member) => {
+  const updateMember = async (member) => {
     console.log(member);
+    const respone = await axios.post(server + '/member/update-member', member);
   };
 
   function renderAddForm(e) {
@@ -101,14 +113,14 @@ function ListMember() {
 
   return (
     <>
-      
+
       <div className="content-box">
         <div>
           <span>Danh sách nhân viên</span>
-          <button href="#" onClick={handleExpand}>-</button>
+          {/* <button href="#" onClick={handleExpand}>-</button> */}
         </div>
         <div className={"collapse " + (expand ? "show" : "")}>
-          <table className="table table-hover table-borderless">
+          <table className="table table-borderless">
             <thead className="member-thead">
               <tr>
                 <th scope="col">Tên nhân viên</th>
@@ -121,11 +133,11 @@ function ListMember() {
 
             <tbody className="member-tbody">
               {listMember.map((member) => {
-                return <ListMemberItem member={member} key={member.MaNV} roles={roles} deleteMember={deleteMember}/>
+                return <ListMemberItem member={member} key={member.MaNV} roles={roles} deleteMember={deleteMember} updateMember={updateMember}/>
               })}
               {showAddForm
                 ? renderAddForm()
-                : <tr><td><button onClick={() => setShowAddForm(true)}>Add Item</button></td></tr>}
+                : <tr><td><button className="center btn btn-lg btn-primary" onClick={() => setShowAddForm(true)}>Thêm nhân viên</button></td></tr>}
             </tbody>
           </table>
         </div>

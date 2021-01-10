@@ -10,11 +10,31 @@ function Login(props) {
   const history = useHistory();
   // const [loggedIn, setLoggedIn] = useState(false);
 
-  useEffect(() => {
-    if (sessionStorage.getItem("JWT")) {
-      history.push({ pathname: "/" });
-    }
-  }, []);
+
+    useEffect(() => {
+        if (sessionStorage.getItem('JWT')) {
+            history.push({ pathname: '/' });
+        }
+    }, []);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const user = {
+            username: e.target.username.value,
+            password: e.target.password.value
+        }
+        let respone = new Response();
+        try {
+            respone = await axios.post(server + '/users/login', user);
+            sessionStorage.setItem("JWT", respone.data.token);
+            sessionStorage.setItem('role', respone.data.role)
+            props.onSetUser(respone.data.token);
+            history.push({ pathname: '/' });
+        }
+        catch (error) {
+            alert("Sai tên đăng nhập hoặc mật khẩu");
+
+        }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
