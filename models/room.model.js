@@ -48,3 +48,13 @@ exports.editFurniture = async (edtFurniture) => {
     await del({ MaThietBi: edtFurniture.MaThietBi} , {MaLoaiPhong: edtFurniture.MaLoaiPhong }, "chitietthietbi");
     return;
 }
+
+exports.getAllRoomTypes = async () => {
+    const query = `select * from loaiphong`
+    const roomTypes = await load(query);
+    return (roomTypes);
+}
+
+exports.addRoom = async (data) => {
+    await add ({MaLoaiPhong: data.MaLoaiPhong, SoPhong: data.SoPhong, TinhTrang: "ok"}, "phong");
+}

@@ -52,4 +52,16 @@ router.post('/room-del-noithat', async (req, res, next) => {
 
     res.send();
 });
+
+
+router.get('/room-type', async (req, res, next) => {
+    const roomTypes = await roomModel.getAllRoomTypes();
+    res.send(roomTypes);
+});
+
+router.post('/add-room', async(req, res, next) => {
+    await roomModel.addRoom(req.body);
+    res.send();
+})
+
 module.exports = router;
