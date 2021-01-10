@@ -4,6 +4,7 @@ import Navigation from './Navigation'
 import axios from 'axios'
 import server from '../server';
 
+
 function Info() {
     const [user, setUser] = useState({});
     const [isChangePassword, setIsChangePassword] = useState(false);
@@ -13,40 +14,62 @@ function Info() {
         checkNewPassword: ""
     });
 
-    useEffect(() => {
-        console.log("use effect")
-        const fetchUserData = async () => {
-            let accessString = sessionStorage.getItem('JWT');
-            const respone = await axios({
-                method: 'get',
-                url: server + "/users/findUser",
-                headers: {
-                    Authorization: `JWT ${accessString}`,
-                },
-            });
-            setUser(respone.data);
-        }
+    const fetchUserData = async () => {
+        let accessString = sessionStorage.getItem('JWT');
+        const respone = await axios({
+            method: 'get',
+            url: server + "/users/findUser",
+            headers: {
+                Authorization: `JWT ${accessString}`,
+            },
+        });
+        setUser(respone.data);
+    }
 
+    useEffect(() => {
         fetchUserData();
     }, []);
 
     const toggleChangePassword = () => {
         setIsChangePassword(prevState => {
-            console.log(prevState);
             return !prevState;
         });
     }
 
     const handlePasswordChange = (e) => {
         setPassword(prevState => {
-            const updatedPassword = {...prevState};
+            const updatedPassword = { ...prevState };
+            // console.log(prevState);
+            // console.log(e.target.name, e.target.value);
             updatedPassword[e.target.name] = e.target.value;
-            
+            return updatedPassword;
         });
     }
 
-    const changePassword = (e) => {
-
+    const changePassword = async () => {
+        let accessString = sessionStorage.getItem('JWT');
+        if (password.newPassword !== password.checkNewPassword) {
+            alert("Mật khẩu mới và xác nhận mật khẩu mới không giống nhau.");
+        }
+        else if (password.currentPassword !== user.MatKhau) {
+            alert("Sai mật khẩu hiện tại");
+        }
+        else {
+            const respone = await axios({
+                method: 'post',
+                url: server + '/users/change-password',
+                data: password,
+                headers: {
+                    Authorization: `JWT ${accessString}`,
+                }
+            });
+            // console.log(respone);
+            if (respone.status == 200) {
+                alert("Đổi mật khẩu thành công");
+                fetchUserData();
+                toggleChangePassword();
+            }
+        }
     }
 
     const renderInfomationCard = () => {
@@ -73,24 +96,24 @@ function Info() {
 
                     </div>
                     {isChangePassword &&
-                    <div >
-                        <div>
-                            <label >Mật khẩu hiện tại</label>
-                            <input type="password" name="currentPassword" onChange={handlePasswordChange} value={password.currentPassword}/>
-                        </div>
-                        <div>
-                            <label >Mật khẩu mới</label>
-                            <input type="password" name="newPassword" onChange={handlePasswordChange} value={password.newPassword}/>
-                        </div>
-                        <div>
-                            <label >Nhập lại mật khẩu mới</label>
-                            <input type="password" name="checkNewPassword" onChange={handlePasswordChange} value={password.checkNewPassword}/>
-                        </div>
-                        <button type="butotn" onClick={changePassword}>Lưu</button>
-                    </div>}
+                        <div >
+                            <div>
+                                <label >Mật khẩu hiện tại</label>
+                                <input type="password" name="currentPassword" onChange={handlePasswordChange} value={password.currentPassword} />
+                            </div>
+                            <div>
+                                <label >Mật khẩu mới</label>
+                                <input type="password" name="newPassword" onChange={handlePasswordChange} value={password.newPassword} />
+                            </div>
+                            <div>
+                                <label >Nhập lại mật khẩu mới</label>
+                                <input type="password" name="checkNewPassword" onChange={handlePasswordChange} value={password.checkNewPassword} />
+                            </div>
+                            <button type="button" onClick={changePassword}>Lưu</button>
+                        </div>}
                 </div>
 
-                
+
             </div>
         );
     }

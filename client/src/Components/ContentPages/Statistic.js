@@ -10,7 +10,7 @@ function Statistic() {
             <div>
                 <Navigation title="Thống kê" />
                 <Container fluid>
-                <MainStatictis/>
+                    <MainStatictis/>
                 </Container>
             </div>
 
