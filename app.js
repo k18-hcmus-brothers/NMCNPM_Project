@@ -16,7 +16,8 @@ const usersRouter = require('./routes/users');
 const memberRouter = require('./routes/member.route');
 const serviceRouter = require('./routes/service');
 const dashboardRouter = require("./routes/dashboard");
-const roomRouter=require("./routes/room")
+const roomRouter=require("./routes/room");
+const statisticRouter = require("./routes/statistic");
 const app = express();
 
 
@@ -44,5 +45,5 @@ app.use('/member', memberRouter);
 app.use('/service',serviceRouter);
 app.use("/dashboard", dashboardRouter);
 app.use("/room",roomRouter);
-
+app.use("/statistic",statisticRouter);
 module.exports = app;
