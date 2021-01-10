@@ -23,7 +23,7 @@ function Navigation(props) {
       <Navbar expand="lg" className="navbar" sticky="top">
         <Navbar.Brand className="navbar-title">{props.title}</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Collapse id="basic-navbar-nav ">
           <Nav className="ml-auto">
             <NavDropdown
               title={< ProfileImage src="/avatar.png" />}
@@ -34,7 +34,6 @@ function Navigation(props) {
               <NavDropdown.Divider />
               <NavDropdown.Item href="/" onClick={handleLogout}>Đăng xuất</NavDropdown.Item>
             </NavDropdown>
-            
           </Nav>
         </Navbar.Collapse>
       </Navbar>

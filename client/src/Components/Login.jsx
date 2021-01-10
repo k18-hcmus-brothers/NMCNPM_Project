@@ -11,47 +11,30 @@ function Login(props) {
   // const [loggedIn, setLoggedIn] = useState(false);
 
 
-    useEffect(() => {
-        if (sessionStorage.getItem('JWT')) {
-            history.push({ pathname: '/' });
-        }
-    }, []);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const user = {
-            username: e.target.username.value,
-            password: e.target.password.value
-        }
-        let respone = new Response();
-        try {
-            respone = await axios.post(server + '/users/login', user);
-            sessionStorage.setItem("JWT", respone.data.token);
-            sessionStorage.setItem('role', respone.data.role)
-            props.onSetUser(respone.data.token);
-            history.push({ pathname: '/' });
-        }
-        catch (error) {
-            alert("Sai tên đăng nhập hoặc mật khẩu");
-
-        }
+  useEffect(() => {
+    if (sessionStorage.getItem('JWT')) {
+      history.push({ pathname: '/' });
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = {
       username: e.target.username.value,
-      password: e.target.password.value,
-    };
-    try {
-      const respone = await axios.post(server + "/users/login", user);
-      sessionStorage.setItem("JWT", respone.data.token);
-      sessionStorage.setItem("role", respone.data.role);
-      props.onSetUser(respone.data.token);
-      history.push({ pathname: "/" });
-    } catch (error) {
-      console.log(error);
+      password: e.target.password.value
     }
-  };
+    let respone = new Response();
+    try {
+      respone = await axios.post(server + '/users/login', user);
+      sessionStorage.setItem("JWT", respone.data.token);
+      sessionStorage.setItem('role', respone.data.role)
+      props.onSetUser(respone.data.token);
+      history.push({ pathname: '/' });
+    }
+    catch (error) {
+      alert("Sai tên đăng nhập hoặc mật khẩu");
+    }
+  }
 
   const RenderLogInPage = () => {
     return (
@@ -103,5 +86,7 @@ function Login(props) {
 
   return RenderLogInPage();
 }
+
+
 
 export default Login;
