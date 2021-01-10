@@ -46,17 +46,14 @@
 }
 
 .updateInfo{
-margin-left:50px;
-margin-top:50px;
+margin-top:30px;
 }
 
 .updateItem {
     margin-bottom: 20px;
 }
 
-.updateItem button{
-    margin-left: 30px;
-}
+
 
 .infonoithat{
     position: relative;
@@ -99,6 +96,3 @@ margin-top:50px;
     background-color:cornflowerblue;
 }
 
-.btn_luachon{
-    display: flex;
-}

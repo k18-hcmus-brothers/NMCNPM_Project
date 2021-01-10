@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import '../../Styles/Room.css';
+import axios from 'axios'
+
+import server from '../../server'
 
 function ListRoomItem(props) {
     const [btninfor, setbtninfor] = useState(true);
-    const [rooms] = useState(props.rooms);
+    const [rooms,setrooms] = useState(props.rooms);
     const [isUpdategia, setisUpdategia] = useState(false);
     const [gia, setgia] = useState();
     const [isUpdatenoithat, setisUpdatenoithat] = useState(false);
-      const [serviceDetail, setServiceDetail] = useState(props.Service);
-  if (!serviceDetail) {
-    setServiceDetail({MaDV: " ",TenDV:" ",GiaDV:" "});
-  }
+    const [serviceDetail, setServiceDetail] = useState(props.Service);
 
     const handleInfo_Click = () => {
         setbtninfor(true);
@@ -32,10 +32,38 @@ function ListRoomItem(props) {
             }
         } else {
             rooms.forEach(element => {
-                element.gia = value;
+                element.Gia = value;
             });
         }
     }
+
+    const updatePrice = async (editprice) => {
+        try {
+          await axios.post(server + '/room/room-update-gia', editprice);
+         
+        }
+        catch(err) {
+          console.log(err);
+          return;
+        }
+    
+        //props.fetchAllRoomData();
+      };
+
+      const deleteFur = async (fur) => {
+        try {
+          await axios.post(server + '/room/room-del-noithat', fur);
+            // refresh
+            props.fetchAllRoomData();
+        }
+        catch(err) {
+          console.log(err);
+          return;
+        }
+
+        //await axios.get(server+'/room/getAllRoom')
+        
+      };
 
     const onInputChangnoithat = (e) => {
         const value = e.target.value;
@@ -52,208 +80,244 @@ function ListRoomItem(props) {
     }
 
     const Noithatitem = (props) => {
-        const value = props.value;
+        const value = props.value[1];
         return (
-            <li>
-                {value}
+            <li className="list-group-item">
+                <table>
+                    <tr>
+                        <td>
+                            {value}
+                        </td>
+                        <td classsName="d-flex justify-content-end">
+                            <input type="button" className="btn btn-danger" name="IdFur" title={props.value[0]} value="Xóa" onClick={xoanoithat}></input>
+                        </td>
+                    </tr>
+                </table>
+
+
             </li>
+        );
+    };
+
+    const NoithatitemEdit = (props) => {
+        const value = props.value;
+        console.log(props);
+        return (
+            <li className="list-group-item">{value}</li>
         );
     };
 
     const Room = (props) => {
         const roomit = props.roomit;
+
         return (
             <div className="roomItem">
                 <div className="roomList">
                     <div className="room">
-                        <div className="roomName">{roomit.NameRoom}</div>
+                        <div className="roomName">Phòng {roomit.SoPhong}</div>
                     </div>
                 </div>
             </div>
         )
     }
 
-    // const InfoItem = (props) => {
-    //     const roomit = props.roomit;
-    //     //const roomnoithat = roomit.noithat;
-    //     const Roomnoithat = roomnoithat.map((item) => { return <Noithatitem key={item.id} name={item.id} value={item} /> })
-    //     return (
-    //         <div>
-    //             <div className="roomItem">
+    const InfoItem = (props) => {
+        const roomit = props.roomit;
+        const roomnoithat = roomit.noithat;
+        console.log(roomnoithat);
+        let Roomnoithat = roomnoithat.map((itemif) => {
+            return (
+                <div className="card">
+                    <NoithatitemEdit key={itemif.id} name={itemif.id} value={itemif[1]} />
+                </div>
+            )
+        })
+        return (
+            <div>
+                <div className="roomItem">
+                    <div className="card infoRoom">
+                        <div className="card-header"><h5>Phòng {rooms[0].TenLoaiPhong}</h5> </div>
+                        <div className="card-header"><h5>Kích thước: {roomit.kickthuoc}m2</h5></div>
+                        <div className="card-body"><h6>{roomit.view}</h6></div>
+                        <div className="card-header"><h5>Nội thất phòng</h5></div>
+                        <div className="card-body">
+                            <ul className="noithat">
+                                {Roomnoithat}
+                            </ul>
+                        </div>
 
-    //                 <div className="infoRoom">
-    //                     <h3>Phòng {rooms[0].Loai}</h3>
-    //                     <h3>Kích thước: {roomit.kickthuoc}m2</h3>
-    //                     <h4>{roomit.view}</h4>
-    //                     <h3>Nội thất phòng</h3>
-    //                     <ul className="noithat">
-    //                         {Roomnoithat}
-    //                     </ul>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     )
-    // }
+                    </div>
+                </div>
+            </div>
+        )
+    }
 
-    // const updategia = async(e) => {
-    //     setisUpdategia(!isUpdategia);
+    const updategia = async (e) => {
+        setisUpdategia(!isUpdategia);
 
-    // }
+    }
 
-    // const luuupdategia = async (e) => {
-    //     e.preventDefault();
-    //    // await props.updatePrice(rooms);
-    //     setisUpdategia(false);
-    // }
+    const luuupdategia = async (e) => {
+        e.preventDefault();
+        const gia={
+            Gia: rooms[0].Gia,
+            MaLoaiPhong:rooms[0].MaLoaiPhong
+        }
+        await updatePrice(gia);
+        setisUpdategia(false);
+    }
 
-    // const Updategiadefaultview = () => {
-    //     const updateif = rooms[0];
-    //     return (
-    //         <div className="gdUpdategia">
-    //             <div>Giá Phòng: {updateif.gia}</div>
-    //             <button className="btnupdate" onClick={updategia}>Chỉnh sửa</button>
-    //         </div>
-    //     )
-    // }
+    const xoanoithat = async (e) => {
+        e.preventDefault();
+        const noithat={
+            MaThietBi: e.target.title,
+            MaLoaiPhong:rooms[0].MaLoaiPhong
+        };
+        await deleteFur(noithat);
+        setisUpdategia(false);
+    }
 
-    // const UpdategiaEditview = () => {
-    //     const updateif = rooms[0];
-    //     return (
-    //         <div className="gdUpdategia">
-    //             <div> Giá Phòng:</div>
-    //             <label>
-    //                 <input type="text" name="gia" defaultValue={rooms[0].gia} onChange={onInputChangegia} />
-    //             </label>
-    //             <div className="btn_luachon">
-    //                 <button className="btn btn-success" onClick={luuupdategia}>Lưu</button>
-    //                 <button className="btn btn-primary" onClick={updategia}>Hủy</button>
-    //             </div>
+    const Updategiadefaultview = () => {
+        const updateif = rooms[0];
+        return (
+            <div className="gdUpdategia">
+                <div className="card">
+                    <div className="card-header"><h5>Giá Phòng:</h5> </div>
+                    <h6>{updateif.Gia}</h6>
+                </div>
+                <button className="btn btn-primary btnupdate" onClick={updategia}>Chỉnh sửa</button>
+            </div>
+        )
+    }
 
-    //         </div>
-    //     )
-    // }
+    const UpdategiaEditview = () => {
+        const updateif = rooms[0];
+        return (
+            <div className="gdUpdategia">
+                <div className="card">
+                    <div className="card-header">
+                        <h5>Giá Phòng:</h5>
+                    </div>
+                    <input type="text" className="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder={updateif.Gia} onChange={onInputChangegia}/>
+                    <div className="d-flex justify-content-xl-around">
+                        <button className="btn btn-success" onClick={luuupdategia}>Lưu</button>
+                        <button className="btn btn-primary" onClick={updategia}>Hủy</button>
+                    </div>
+                </div>
+            </div>
+        )
+    }
 
-    // const updatenoithat = () => {
-    //     if (isUpdatenoithat === false)
-    //         setisUpdatenoithat(true);
-    //     else setisUpdatenoithat(false);
-    // }
+    const updatenoithat = () => {
+        if (isUpdatenoithat === false)
+            setisUpdatenoithat(true);
+        else setisUpdatenoithat(false);
+    }
 
-    // const luuupdatenoithat = async (e) => {
-    //     e.preventDefault();
-    //    // await props.updateFurniture(rooms[0].noithat);
-    //     setisUpdatenoithat(false);
+    const luuupdatenoithat = async (e) => {
+        e.preventDefault();
+        // await props.updateFurniture(rooms[0].noithat);
+        setisUpdatenoithat(false);
 
-    // }
+    }
 
-    // const Updatenoithatdefaultview = () => {
-    //     const updateif = rooms[0];
-    //     const roomnoithat = rooms[0].noithat;
-    //     const Roomnoithat = roomnoithat.map((item) => { return <Noithatitem key={item.id} name={item.id} value={item} /> });
-    //     return (
-    //         <div>
-    //             <div className="updateItem">
-    //                 <div>Nội thất phòng</div>
-    //                 <button className="btnupdate" onClick={updatenoithat}>Chỉnh sửa</button>
-    //             </div>
-    //             <div className="infonoithat">
-    //                 <ul>
-    //                     {Roomnoithat}
-    //                 </ul>
-    //             </div>
-    //         </div>
-    //     )
-    // }
+    const UpdatenoithatEditview = () => {
+        const updateif = rooms[0];
+        const roomnoithat = rooms[0].noithat;
+        const Roomnoithat = roomnoithat.map((itemdv) => { return <Noithatitem key={itemdv.id} name={itemdv.id} value={itemdv} /> });
+        return (
+            <div class="card">
+                <h5 class="card-header">Nội thất phòng:</h5>
+                <div className="card-body">
+                    <ul classsName="list-group list-group-flush">
+                        {Roomnoithat}
+                        <button class="btn btn-primary">Thêm nội thất</button>
+                    </ul>
+                </div>
+            </div>
+        )
+    }
 
-    // const UpdatenoithatEditview = () => {
-    //     const updateif = rooms[0];
-    //     const roomnoithat = rooms[0].noithat;
-    //     const Roomnoithat = roomnoithat.map((item) => { return <Noithatitem key={item.id} name={item.id} value={item} luuupdatenoithat={luuupdatenoithat} /> });
-    //     return (
-    //         <div>
-    //             <div className="updateItem">
-    //                 <div>Nội thất phòng</div>
-    //             </div>
-    //             <div className="infonoithat">
-    //                 <textarea cols="50" rows="10" defaultValue={roomnoithat} onChange={onInputChangnoithat}>
+    const Updatenoithatphong = () => {
+        return (
+            <div>
+                <UpdatenoithatEditview />
+            </div>)
+    }
 
-    //                 </textarea>
-    //                 <div className="btn_luachon">
-    //                     <button className="btn btn-success" onClick={luuupdatenoithat}>Lưu</button>
-    //                     <button className="btn btn-primary" onClick={updatenoithat}>Hủy</button>
-    //                 </div>
+    const Updategiaphong = () => {
+        if (isUpdategia)
+            return (<div>
+                <UpdategiaEditview />
+            </div>)
+        return (<div>
+            <Updategiadefaultview />
+        </div>)
+    }
 
-    //             </div>
-    //         </div>
-    //     )
-    // }
+    const Info = (props) => {
+        if (rooms.length != 0) {
+            const roomif = rooms;
 
-    // const Updatenoithatphong = () => {
-    //     if (isUpdatenoithat)
-    //         return (<div>
-    //             <UpdatenoithatEditview />
-    //         </div>)
-    //     return (<div>
-    //         <Updatenoithatdefaultview />
-    //     </div>)
-    // }
+            return (
+                <div className="gdphong">
+                    <div className="dsphong">
+                        {roomif.map((room) => { return <Room key={room.id} name={room.id} roomit={room} luuupdategia={luuupdategia} /> }
+                        )}
+                    </div>
+                    <div className="thongtinphong">
+                        <InfoItem roomit={roomif[0]} />
+                    </div>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <h2>Chưa có phòng thuộc loại phòng này</h2>
+                </div>
+            );
+        }
 
-    // const Updategiaphong = () => {
-    //     if (isUpdategia)
-    //         return (<div>
-    //             <UpdategiaEditview />
-    //         </div>)
-    //     return (<div>
-    //         <Updategiadefaultview />
-    //     </div>)
-    // }
+    }
 
-    // const Info = (props) => {
-    //     const roomif = rooms;
-    //     return (
-    //         <div className="gdphong">
-    //             <div className="dsphong">
-    //                 {roomif.map((room) => { return <Room key={room.id} name={room.id} roomit={room} luuupdategia={luuupdategia} /> }
-    //                 )}
-    //             </div>
-    //             <div className="thongtinphong">
-    //                 <InfoItem roomit={roomif[0]} />
-    //             </div>
-    //         </div>
-    //     )
-    // }
+    const Update = (props) => {
+        if (rooms.length != 0) {
+            return (
+                <div className="updateInfo">
+                    <div className="updateItem">
+                        <Updategiaphong />
+                    </div>
+                    <Updatenoithatphong />
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <h2>Chưa có thông tin loại phòng này </h2>
+                </div>
+            );
+        }
 
-    // const Update = (props) => {
-    //     return (
-    //         <div className="updateInfo">
-    //             <div className="updateItem">
-    //                 <Updategiaphong />
-    //             </div>
-    //             <div className="updateItem">
-    //                 <Updatenoithatphong />
-    //             </div>
-    //         </div>
-    //     )
-    // }
-    // const Greeting = () => {
-    //     const isinfo = btninfor;
-    //     if (isinfo)
-    //         return <Info rooms={rooms} />;
-    //     return <Update />;
-    // }
+    }
+    const Greeting = () => {
+        const isinfo = btninfor;
+        if (isinfo)
+            return <Info rooms={rooms} />;
+        return <Update />;
+    }
 
-    // return (
-    //     <div className="roombyloai">
-    //         <div className="button-list">
-    //             <button className="btninfoRoom" onClick={handleInfo_Click}>Thông tin</button>
-    //             <button className="btnupdateRoom" onClick={handleUpdate_Click}>Cập nhật</button>
-    //         </div>
-    //         <div className="eachroom">
-    //             <Greeting />
-    //         </div>
+    return (
+        <div className="roombyloai">
+            <div className="button-list">
+                <button className="btninfoRoom" onClick={handleInfo_Click}>Thông tin</button>
+                <button className="btnupdateRoom" onClick={handleUpdate_Click}>Cập nhật</button>
+            </div>
+            <div className="eachroom">
+                <Greeting />
+            </div>
 
-    //     </div>
-    // );
+        </div>
+    );
 
 }
 
