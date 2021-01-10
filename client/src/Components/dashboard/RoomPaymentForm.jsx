@@ -2,52 +2,82 @@ import React, { useState, useEffect } from "react";
 import Popup from "reactjs-popup";
 import FormError from "./FormError";
 import RoomServiceForm from "./RoomServiceForm";
-import axios from 'axios';
-import server from '../../server'
+import axios from "axios";
+import server from "../../server";
 const numeral = require("numeral");
 
 const RoomPaymentForm = ({ data, close, checkOut, updateNote }) => {
-
   const [services, setServices] = useState([]);
   const [listOfService, setListOfService] = useState([]);
   const [totalPriceService, setTotalPriceService] = useState(0);
+  let accessString = sessionStorage.getItem("JWT");
 
   const fetchServiceData = async () => {
-    const response = await axios.get(server + "/service/get-service?mathuephong=" + data.MaThuePhongHienTai);
-    console.log("<<RESPONE>>",response.data);
+    const response = await axios.get(
+      server + "/service/get-service?mathuephong=" + data.MaThuePhongHienTai,
+      {
+        headers: {
+          Authorization: `JWT ${accessString}`,
+        },
+      }
+    );
+    console.log("<<RESPONE>>", response.data);
     setServices(response.data);
-  }
+  };
 
   const fetchListOfService = async () => {
-    const respone = await axios.get(server + '/service/service');
+    const respone = await axios.get(server + "/service/service", {
+      headers: {
+        Authorization: `JWT ${accessString}`,
+      },
+    });
+    console.log("Service");
     setListOfService(respone.data);
-  }
+  };
 
   const appendService = async (newService) => {
-    const respone = await axios.post(server + "/service/append-service", newService);
+    const respone = await axios.post(
+      server + "/service/append-service",
+      newService,
+      {
+        headers: {
+          Authorization: `JWT ${accessString}`,
+        },
+      }
+    );
 
     fetchServiceData();
-  }
+  };
 
   const removeService = async (maSuDungDichVu) => {
-    const respone = await axios.post(server + "/service/remove-service", {maSuDungDichVu: maSuDungDichVu});
+    const respone = await axios.post(
+      server + "/service/remove-service",
+      {
+        maSuDungDichVu: maSuDungDichVu,
+      },
+      {
+        headers: {
+          Authorization: `JWT ${accessString}`,
+        },
+      }
+    );
 
     fetchServiceData();
-  }
+  };
 
   useEffect(() => {
+    if (data === null) return;
     fetchServiceData();
     fetchListOfService();
-  },[])
+  }, []);
 
-  useEffect(()=> {
+  useEffect(() => {
     let total = 0;
-    services.forEach(service => {
-      total += (service.SoLuong * service.GiaDV);
+    services.forEach((service) => {
+      total += service.SoLuong * service.GiaDV;
       setTotalPriceService(total);
     });
-  },[services]);
-
+  }, [services]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -198,7 +228,16 @@ const RoomPaymentForm = ({ data, close, checkOut, updateNote }) => {
             modal
             closeOnDocumentClick
           >
-              {(close) => <RoomServiceForm data={data} close={close} services={services} listOfService={listOfService} appendService={appendService} removeService={removeService}/>}
+            {(close) => (
+              <RoomServiceForm
+                data={data}
+                close={close}
+                services={services}
+                listOfService={listOfService}
+                appendService={appendService}
+                removeService={removeService}
+              />
+            )}
           </Popup>
         </div>
         <div className="form-group col-sm-6">

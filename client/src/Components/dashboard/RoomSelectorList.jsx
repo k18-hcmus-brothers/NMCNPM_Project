@@ -5,11 +5,17 @@ import server from "../../server";
 const axios = require("axios");
 
 const RoomSelectorList = () => {
+  let accessString = sessionStorage.getItem("JWT");
+
   const [roomsList, setRooms] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get(server + "/dashboard/rooms");
+      const result = await axios.get(server + "/dashboard/rooms", {
+        headers: {
+          Authorization: `JWT ${accessString}`,
+        },
+      });
       console.log(result);
       setRooms(result.data);
     };
