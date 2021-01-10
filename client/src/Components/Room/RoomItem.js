@@ -6,12 +6,13 @@ import server from '../../server'
 
 function ListRoomItem(props) {
     const [btninfor, setbtninfor] = useState(true);
-    const [rooms,setrooms] = useState(props.rooms);
+    const [rooms, setrooms] = useState(props.rooms);
     const [isUpdategia, setisUpdategia] = useState(false);
     const [gia, setgia] = useState();
     const [isUpdatenoithat, setisUpdatenoithat] = useState(false);
     const [serviceDetail, setServiceDetail] = useState(props.Service);
-
+    const [isAddFur, setisAddFur] = useState(true);
+    let thietbi="";
     const handleInfo_Click = () => {
         setbtninfor(true);
     }
@@ -19,6 +20,11 @@ function ListRoomItem(props) {
     const handleUpdate_Click = () => {
         setbtninfor(false);
     }
+
+    const handleAddFur = () => {
+        setisAddFur(!isAddFur);
+    }
+
 
     const onInputChangegia = (e) => {
         const value = e.target.value;
@@ -37,47 +43,60 @@ function ListRoomItem(props) {
         }
     }
 
-    const updatePrice = async (editprice) => {
-        try {
-          await axios.post(server + '/room/room-update-gia', editprice);
-         
-        }
-        catch(err) {
-          console.log(err);
-          return;
-        }
-    
-        //props.fetchAllRoomData();
-      };
-
-      const deleteFur = async (fur) => {
-        try {
-          await axios.post(server + '/room/room-del-noithat', fur);
-            // refresh
-            props.fetchAllRoomData();
-        }
-        catch(err) {
-          console.log(err);
-          return;
-        }
-
-        //await axios.get(server+'/room/getAllRoom')
-        
-      };
-
-    const onInputChangnoithat = (e) => {
+    const onInputAddFur = (e) => {
         const value = e.target.value;
-        if (value === "") {
+        
+        if (value.length === 0) {
             if (window.confirm('Không được để trống')) {
                 return;
             }
-        } else {
-            const res = value.split(",");
-            rooms.forEach(element => {
-                element.noithat = res;
-            })
+        }else{
+            thietbi=value;
         }
     }
+
+    const updatePrice = async (editprice) => {
+        try {
+            await axios.post(server + '/room/room-update-gia', editprice);
+
+        }
+        catch (err) {
+            console.log(err);
+            return;
+        }
+
+        //props.fetchAllRoomData();
+    };
+
+    const deleteFur = async (fur) => {
+        try {
+            await axios.post(server + '/room/room-del-noithat', fur);
+            // refresh
+            props.fetchAllRoomData();
+        }
+        catch (err) {
+            console.log(err);
+            return;
+        }
+
+        //await axios.get(server+'/room/getAllRoom')
+
+    };
+
+    const themFur = async (fur) => {
+        try {
+            await axios.post(server + '/room/room-add-fur', fur);
+            // refresh
+            props.fetchAllRoomData();
+        }
+        catch (err) {
+            console.log(err);
+            return;
+        }
+
+        //await axios.get(server+'/room/getAllRoom')
+
+    };
 
     const Noithatitem = (props) => {
         const value = props.value[1];
@@ -101,7 +120,6 @@ function ListRoomItem(props) {
 
     const NoithatitemEdit = (props) => {
         const value = props.value;
-        console.log(props);
         return (
             <li className="list-group-item">{value}</li>
         );
@@ -124,7 +142,6 @@ function ListRoomItem(props) {
     const InfoItem = (props) => {
         const roomit = props.roomit;
         const roomnoithat = roomit.noithat;
-        console.log(roomnoithat);
         let Roomnoithat = roomnoithat.map((itemif) => {
             return (
                 <div className="card">
@@ -159,9 +176,9 @@ function ListRoomItem(props) {
 
     const luuupdategia = async (e) => {
         e.preventDefault();
-        const gia={
+        const gia = {
             Gia: rooms[0].Gia,
-            MaLoaiPhong:rooms[0].MaLoaiPhong
+            MaLoaiPhong: rooms[0].MaLoaiPhong
         }
         await updatePrice(gia);
         setisUpdategia(false);
@@ -169,12 +186,22 @@ function ListRoomItem(props) {
 
     const xoanoithat = async (e) => {
         e.preventDefault();
-        const noithat={
+        const noithat = {
             MaThietBi: e.target.title,
-            MaLoaiPhong:rooms[0].MaLoaiPhong
+            MaLoaiPhong: rooms[0].MaLoaiPhong
         };
         await deleteFur(noithat);
         setisUpdategia(false);
+    }
+
+    const themnoithat=async(e)=>{
+        e.preventDefault();
+        const newFur={
+            TenThietBi:thietbi,
+            MaLoaiPhong:rooms[0].MaLoaiPhong
+        };
+        await themFur(newFur);
+        setisAddFur(false);
     }
 
     const Updategiadefaultview = () => {
@@ -198,9 +225,9 @@ function ListRoomItem(props) {
                     <div className="card-header">
                         <h5>Giá Phòng:</h5>
                     </div>
-                    <input type="text" className="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder={updateif.Gia} onChange={onInputChangegia}/>
+                    <input type="text" className="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder={updateif.Gia} onChange={onInputChangegia} />
                     <div className="d-flex justify-content-xl-around">
-                        <button className="btn btn-success" onClick={luuupdategia}>Lưu</button>
+                        <button className="btn btn-success" onClick={luuupdategia} on>Lưu</button>
                         <button className="btn btn-primary" onClick={updategia}>Hủy</button>
                     </div>
                 </div>
@@ -208,30 +235,26 @@ function ListRoomItem(props) {
         )
     }
 
-    const updatenoithat = () => {
-        if (isUpdatenoithat === false)
-            setisUpdatenoithat(true);
-        else setisUpdatenoithat(false);
-    }
-
-    const luuupdatenoithat = async (e) => {
-        e.preventDefault();
-        // await props.updateFurniture(rooms[0].noithat);
-        setisUpdatenoithat(false);
-
-    }
 
     const UpdatenoithatEditview = () => {
         const updateif = rooms[0];
         const roomnoithat = rooms[0].noithat;
         const Roomnoithat = roomnoithat.map((itemdv) => { return <Noithatitem key={itemdv.id} name={itemdv.id} value={itemdv} /> });
         return (
-            <div class="card">
-                <h5 class="card-header">Nội thất phòng:</h5>
+            <div className="card">
+                <h5 className="card-header">Nội thất phòng:</h5>
                 <div className="card-body">
                     <ul classsName="list-group list-group-flush">
                         {Roomnoithat}
-                        <button class="btn btn-primary">Thêm nội thất</button>
+                        <li className="list-group-item">
+                            {isAddFur ? (<div><button className="btn btn-primary" onClick={handleAddFur}>Thêm nội thất</button></div>) : (<div>
+                                <input type="text" className="form-control" placeholder="Tên Nội Thất" aria-label="Recipient's username" aria-describedby="basic-addon2" onChange={onInputAddFur}></input>
+                                <button className="btn btn-success" onClick={themnoithat} >Lưu</button>
+                                <button className="btn btn-primary" onClick={handleAddFur}>Hủy</button>
+                            </div>)}
+
+                        </li>
+
                     </ul>
                 </div>
             </div>

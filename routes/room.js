@@ -18,20 +18,19 @@ router.get('/allroom', async (req, res, next) => {
                 fur.TenThietBi
             ]
             room.noithat = [...room.noithat, noithat];
-
         }
     }
     let Vip = [...roomVip];
-    for (let room of Vip) {
-        room.noithat = [];
-        room.kichthuoc = 25
-        room.view = "Không gian rộng rãi tiện nghi, khung cảnh lãng mạn."
-        for (const fur of furVip) {
-            const noithat = {
-                MaThietBi: fur.MaThietBi,
-                TenThietBi: fur.TenThietBi
-            }
-            room.noithat = [...room.noithat, noithat];
+    for (let roomV of Vip) {
+        roomV.noithat = [];
+        roomV.kichthuoc = 25
+        roomV.view = "Không gian rộng rãi tiện nghi, khung cảnh lãng mạn."
+        for (const furV of furVip) {
+            const noithat = [
+                furV.MaThietBi,
+                furV.TenThietBi
+            ]
+            roomV.noithat = [...roomV.noithat, noithat];
         }
     }
     const Allrooms = [roomNor, roomVip];
@@ -52,4 +51,12 @@ router.post('/room-del-noithat', async (req, res, next) => {
 
     res.send();
 });
+
+router.post('/room-add-fur',async(req,res,next)=>{
+    const thietbi=req.body;
+    await roomModel.addFur(thietbi.TenThietBi,thietbi.MaLoaiPhong);
+
+    res.send();
+})
+
 module.exports = router;

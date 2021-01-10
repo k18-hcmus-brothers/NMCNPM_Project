@@ -35,7 +35,8 @@ function ListRoom() {
     
              if (idroom == 1)
                  return <ListRooomItem fetchAllRoomData={fetchAllRoomData} rooms={RoomDetail[0]} />
-             return <ListRooomItem fetchAllRoomData={fetchAllRoomData} rooms={RoomDetail[1]} />
+             return <ListRooomItem fetchAllRoomData={fetchAllRoomData}
+              rooms={RoomDetail[1]} />
             return;
         }
         return (
