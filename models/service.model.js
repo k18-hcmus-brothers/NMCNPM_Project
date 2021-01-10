@@ -12,7 +12,7 @@ const patch = (entity, condition, table) =>
 exports.getAllService = async () => {
     const query = `select * from dichvu`;
     const service = await load(query);
-    console.log("<<Service MODEL>>", service);
+    // console.log("<<Service MODEL>>", service);
     return service;
 }
 exports.addService = async (newService) => {

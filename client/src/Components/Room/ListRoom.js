@@ -43,7 +43,6 @@ function ListRoom() {
             <div className="loaiRoom">
                 <h2>Loại Phòng:</h2>
                 <div className="listbtnloaiphong">
-    
                     <button className="btnloaiphong" onClick={handleRoom_Nor}>Phòng NOR</button>
                     <button className="btnloaiphong" onClick={handleRoom_Vip}>Phòng VIP</button>
                 </div>

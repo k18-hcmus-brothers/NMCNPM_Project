@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const roleModel = require('../models/role.model');
 const memberModel = require('../models/member.model');
-const passport = require('passport');
 const authenticate = require('../authentication/authenticate');
 
 // router.use(authenticate.auth);
@@ -49,12 +48,16 @@ router.post('/add-member', async (req, res, next) => {
   res.send();
 });
 
-
 router.post('/delete-member', async(req, res, next) => {
   const id = req.body.id;
   await memberModel.deleteMember(id);
 
   res.status(200).send();
 }); 
+
+router.post('/update-member', async(req, res, next) => {
+  await memberModel.updateMember(req.body);
+  res.send();
+});
 
 module.exports = router;

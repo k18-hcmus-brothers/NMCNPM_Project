@@ -71,7 +71,7 @@ function Role() {
                   <th scope="col">Thêm/Xoá dịch vụ</th>
                   <th scope="col">Thêm/Xoá nhân viên</th>
                   <th scope="col">Xem/Xuất báo cáo</th>
-                  <th scope="col">Hành động</th>
+                  <th scope="col"></th>
                 </tr>
               </thead>
 
@@ -82,7 +82,7 @@ function Role() {
                
                 {showAddForm
                   ? renderAddForm()
-                  : <tr><td><button className="center btn btn-lg btn-primary" onClick={() => setShowAddForm(true)}>Thêm vai trò</button> </td></tr>}
+                  : <tr><td><button type="button" className="center btn btn-lg btn-primary">Thêm vai trò</button> </td></tr>}
                  
               </tbody>
             </table>

@@ -106,6 +106,7 @@ const RoomBookingForm = ({ data, close, checkIn }) => {
     if (!hasError) {
       try {
         await checkIn(statesManager, dateIn, dateOut);
+        console.log("LOL");
         close();
       } catch (error) {
         console.error(error);

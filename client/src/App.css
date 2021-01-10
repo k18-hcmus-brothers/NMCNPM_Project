@@ -28,6 +28,11 @@
   margin-bottom: 30px;
 }
 
+.card-header.info {
+  background-color: #007bff;
+  color: white;
+}
+
 .row {
   display: -ms-flexbox;
   display: flex;
@@ -66,3 +71,9 @@
 }
 
 ::-webkit-scrollbar-button:single-button {}
+
+
+.dropdown-menu.show {
+  right: 0 !important;
+    left: auto !important;
+}

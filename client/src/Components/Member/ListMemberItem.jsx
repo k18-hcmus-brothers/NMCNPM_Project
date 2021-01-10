@@ -7,9 +7,10 @@ function ListMemberItem(props) {
   if (!memberDetail) {
     setMemberDetail({TenNV: "", TenDangNhap: "", MaVaiTro: "1", SDT: "", })
   }
-  const handleUpdate = (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
     if (!disabled) {
+      await props.updateMember(memberDetail);
     }
     setDisabled(!disabled);
   };
@@ -45,7 +46,7 @@ function ListMemberItem(props) {
           <input type="text" name="TenNV" value={memberDetail.TenNV} onChange={onInputChange} disabled={disabled ? "disabled" : ""} className="member-input" />
         </td>
         <td>
-          <input type="text" name="TenDangNhap" value={memberDetail.TenDangNhap} onChange={onInputChange} disabled={disabled ? "disabled" : ""} className="member-input" />
+          <input type="text" name="TenDangNhap" value={memberDetail.TenDangNhap} onChange={onInputChange} disabled="disabled" className="member-input" />
         </td>
         <td>
           <select name="MaVaiTro" className="member-input" disabled={disabled ? "disabled" : ""} value={memberDetail.MaVaiTro} onChange={onInputChange}>
